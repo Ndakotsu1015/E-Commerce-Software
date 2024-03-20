@@ -55,4 +55,45 @@ class SubCategoryController extends Controller
 
 
     }
+    public function edit($id)
+    {
+        $data['getCategory'] = Category::getCatgory();
+        $data['getRecord'] = SubCategory::getSingle($id);
+        $data['header_title'] = 'Edit Sub Category';
+
+        return view('admin.subcategory.edit', $data);
+
+    }
+
+    public function update($id, Request $request)
+    {
+
+        request()->validate([
+            'slug' => 'required|unique:sub_categories,slug,' . $id
+
+        ]);
+
+        $subcategory = SubCategory::getSingle($id);
+        $subcategory->category_id = trim($request->category_id);
+        $subcategory->name = trim($request->name);
+        $subcategory->slug = trim($request->slug);
+        $subcategory->status = trim($request->status);
+        $subcategory->meta_title = trim($request->meta_title);
+        $subcategory->meta_keywords = trim($request->meta_keywords);
+        $subcategory->meta_description = trim($request->meta_description);
+        $subcategory->save();
+
+        return redirect('admin/sub_category/list')->with('success', 'Subcategory Successully Updated!');
+
+    }
+
+    public function delete($id)
+    {
+        $subcategory = SubCategory::getSingle($id);
+        $subcategory->is_delete = 'deleted';
+        $subcategory->save();
+
+        return redirect()->back()->with('success', 'Sub Category Successfully Deleted!');
+
+    }
 }

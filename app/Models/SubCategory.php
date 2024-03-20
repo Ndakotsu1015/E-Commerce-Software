@@ -10,7 +10,10 @@ class SubCategory extends Model
     use HasFactory;
     protected $table = 'sub_categories';
 
-
+    static public function getSingle($id)
+    {
+        return self::find($id);
+    }
     static public function getSubCatgory()
     {
         return SubCategory::select('sub_categories.*', 'users.name as created_by_name', 'categories.name as category_name')
@@ -18,6 +21,6 @@ class SubCategory extends Model
             ->join('users', 'users.id', '=', 'sub_categories.created_by')
             ->where('sub_categories.is_delete', '=', 'not')
             ->orderBy('sub_categories.id', 'desc')
-            ->paginate(20);
+            ->paginate(50);
     }
 }

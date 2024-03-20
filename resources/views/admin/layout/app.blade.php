@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>E-Commerce | Dashboard</title>
+    <title>{{ !empty($header_title) ? $header_title : '' }} - E-Commerce</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"

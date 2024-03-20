@@ -10,7 +10,7 @@ class AuthController extends Controller
 {
     public function login_admin()
     {
-        if (!empty(Auth::check()) && Auth::user()->user_type == 'Admin') {
+        if (!empty (Auth::check()) && Auth::user()->user_type == 'Admin') {
             return redirect('admin/dashboard');
         }
 
@@ -19,8 +19,16 @@ class AuthController extends Controller
     }
     function auth_login_admin(Request $request)
     {
-        $remember = !empty($request->remember) ? true : false;
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'user_type' => 'Admin'], $remember)) {
+        $remember = !empty ($request->remember) ? true : false;
+        if (
+            Auth::attempt([
+                'email' => $request->email,
+                'password' => $request->password,
+                'user_type' => 'Admin',
+                'status' => 'Active',
+                'is_delete' => 'not'
+            ], $remember)
+        ) {
             return redirect('admin/dashboard');
 
         } else {

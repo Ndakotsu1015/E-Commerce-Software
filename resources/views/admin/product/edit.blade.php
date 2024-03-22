@@ -118,49 +118,20 @@
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody id="AppendSize">
                                                         <tr>
                                                             <td>
-                                                                <input type="text" name="" class="form-control">
+                                                                <input type="text" name="" placeholder="Name"
+                                                                    class="form-control">
                                                             </td>
                                                             <td>
-                                                                <input type="text" name="" class="form-control">
+                                                                <input type="text" name="" placeholder="Price"
+                                                                    class="form-control">
                                                             </td>
-                                                            <td>
-                                                                <button type="button" class="btn btn-primary">Add</button>
+                                                            <td style="width: 200px;">
                                                                 <button type="button"
-                                                                    class="btn btn-danger">Delete</button>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <input type="text" name=""
-                                                                    class="form-control">
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" name=""
-                                                                    class="form-control">
-                                                            </td>
-                                                            <td>
+                                                                    class="btn btn-primary AddSize">Add</button>
 
-                                                                <button type="button"
-                                                                    class="btn btn-danger">Delete</button>
-                                                            </td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td>
-                                                                <input type="text" name=""
-                                                                    class="form-control">
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" name=""
-                                                                    class="form-control">
-                                                            </td>
-                                                            <td>
-
-                                                                <button type="button"
-                                                                    class="btn btn-danger">Delete</button>
                                                             </td>
                                                         </tr>
 
@@ -171,14 +142,6 @@
                                         </div>
                                     </div>
                                     <hr>
-
-                                    {{-- <div class="row">
-                                        <div class="form-group col-md-12">
-                                            <label for="name">Short Description</label>
-                                            <textarea class="form-control" name="short_description" placeholder="Short Description">
-                                            {{ old('short_description', $getRecord->short_description) }}</textarea>
-                                        </div>
-                                    </div> --}}
                                     <div class="row p-3">
                                         <div class="form-group col-md-3">
                                             <label for="name">Short Description <span
@@ -228,6 +191,51 @@
 
 @section('script')
     <script type="text/javascript">
+        // var i = 1000;
+        // $('body').delegate('.AddSize', 'click', function() {
+
+        //     var html = '<tr id="DeleteSize' + i + '">' +
+        //         '<td>' +
+        //         '<input type="text" name="" value="' + i + '" class="form-control">' +
+        //         '</td>' +
+        //         '<td>' +
+        //         '<input type="text" name="" class="form-control">' +
+        //         '</td>' +
+        //         '<td>' +
+        //         '<button type="button" id="' + i + '" class="btn btn-danger DeleteSize">Delete</button>' +
+        //         '</td>' +
+        //         '</tr>';
+        //     i++;
+        //     $('#AppendSize').append(html);
+        // });
+
+        // $('body').delegate('.DeleteSize', 'click', function() {
+        //     var id = $(this).attr('id');
+        //     $('$DeleteSize' + id).remove();
+        // });
+        var i = 1000;
+        $('body').on('click', '.AddSize', function() {
+            var html = '<tr id="DeleteSize' + i + '">' +
+                '<td>' +
+                '<input type="text" name="" placeholder="Name" class="form-control">' +
+                '</td>' +
+                '<td>' +
+                '<input type="text" name=""  placeholder="Price" class="form-control">' +
+                '</td>' +
+                '<td>' +
+                '<button type="button" id="' + i + '" class="btn btn-danger DeleteSize">Delete</button>' +
+                '</td>' +
+                '</tr>';
+            i++;
+            $('#AppendSize').append(html);
+        });
+
+        $('body').on('click', '.DeleteSize', function() {
+            var id = $(this).attr('id');
+            $('#DeleteSize' + id).remove();
+        });
+
+
         $('body').delegate('#ChangeCategory', 'change', function(e) {
             var id = $(this).val();
             $.ajax({

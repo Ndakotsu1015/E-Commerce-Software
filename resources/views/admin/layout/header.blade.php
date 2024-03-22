@@ -104,7 +104,7 @@
  <!-- /.navbar -->
 
  <!-- Main Sidebar Container -->
- <aside class="main-sidebar sidebar-dark-primary elevation-4">
+ <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: rgb(21, 45, 71)">
      <!-- Brand Logo -->
      <div class="brand-link" style="text-align: center">
 

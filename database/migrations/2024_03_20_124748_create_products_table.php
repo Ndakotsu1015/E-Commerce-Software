@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('title')->nullable();
             $table->string('slug')->nullable();
+            $table->string('sku')->nullable();
             $table->integer('category_id')->nullable();
             $table->integer('sub_category_id')->nullable();
             $table->integer('brand_id')->nullable();

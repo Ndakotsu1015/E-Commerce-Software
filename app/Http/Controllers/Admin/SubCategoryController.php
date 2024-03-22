@@ -13,7 +13,7 @@ class SubCategoryController extends Controller
     public function list()
     {
 
-        $data['getRecord'] = SubCategory::getSubCatgory();
+        $data['getRecord'] = SubCategory::getSubCategory();
 
         $data['header_title'] = 'Sub Category';
 
@@ -24,7 +24,7 @@ class SubCategoryController extends Controller
     public function add()
     {
 
-        $data['getCategory'] = Category::getCatgory();
+        $data['getCategory'] = Category::getCategory();
         $data['header_title'] = 'Add New Sub Category';
 
         return view('admin.subcategory.add', $data);
@@ -57,7 +57,7 @@ class SubCategoryController extends Controller
     }
     public function edit($id)
     {
-        $data['getCategory'] = Category::getCatgory();
+        $data['getCategory'] = Category::getCategory();
         $data['getRecord'] = SubCategory::getSingle($id);
         $data['header_title'] = 'Edit Sub Category';
 
@@ -96,4 +96,22 @@ class SubCategoryController extends Controller
         return redirect()->back()->with('success', 'Sub Category Successfully Deleted!');
 
     }
+
+    public function get_sub_category(Request $request)
+    {
+        $category_id = $request->id;
+        $get_sub_category = SubCategory::getSubCategoryRecord($category_id);
+        $html = '';
+        $html .= '<option value="">Select</option>';
+        foreach ($get_sub_category as $value) {
+            $html .= '<option value="' . $value->id . '">' . $value->name . '</option>';
+        }
+
+        $json['html'] = $html;
+        echo json_encode($json);
+    }
+
+
+
+
 }

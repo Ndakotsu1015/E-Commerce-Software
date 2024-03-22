@@ -173,6 +173,26 @@
                          </p>
                      </a>
                  </li>
+                 <li class="nav-item">
+                     <a href="{{ url('admin/brand/list') }}"
+                         class="nav-link @if (Request::segment(2) == 'brand') active @endif">
+                         <i class="nav-icon fa fa-list-alt"></i>
+                         <p>
+                             Brand
+
+                         </p>
+                     </a>
+                 </li>
+                 <li class="nav-item">
+                     <a href="{{ url('admin/color/list') }}"
+                         class="nav-link @if (Request::segment(2) == 'color') active @endif">
+                         <i class="nav-icon fa fa-list-alt"></i>
+                         <p>
+                             Color
+
+                         </p>
+                     </a>
+                 </li>
 
 
                  <li class="nav-item">

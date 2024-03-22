@@ -16,12 +16,21 @@ class Category extends Model
         return Category::find($id);
     }
 
-    static public function getCatgory()
+    static public function getCategory()
     {
         return Category::select('categories.*', 'users.name as created_by_name')
             ->join('users', 'users.id', '=', 'categories.created_by')
             ->where('categories.is_delete', '=', 'not')
             ->orderBy('categories.id', 'desc')
+            ->get();
+    }
+    static public function getCategoryActive()
+    {
+        return Category::select('categories.*')
+            ->join('users', 'users.id', '=', 'categories.created_by')
+            ->where('categories.is_delete', '=', 'not')
+            ->where('categories.status', '=', 'Active')
+            ->orderBy('categories.name', 'asc')
             ->get();
     }
 }

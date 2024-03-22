@@ -7,10 +7,10 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Product List</h1>
+                        <h1>Color List</h1>
                     </div>
                     <div class="col-sm-6" style="text-align: right">
-                        <a href="{{ url('admin/product/add') }}" class=" btn btn-primary">Add New Product</a>
+                        <a href="{{ url('admin/color/add') }}" class=" btn btn-primary">Add New Color</a>
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Product List</h3>
+                                <h3 class="card-title">Color List</h3>
                             </div>
 
                             <div class="card-body p-0">
@@ -34,10 +34,11 @@
                                     <thead>
                                         <tr>
                                             <th>S/N</th>
-                                            <th>Title</th>
-                                            <th>Created By</th>
+                                            <th>Color Name</th>
+                                            <th>Color Code</th>
                                             <th>Status</th>
-                                            <th>Created Date</th>
+                                            <th>Created By</th>
+                                            <th>Created date</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -45,14 +46,15 @@
                                         @foreach ($getRecord as $value)
                                             <tr>
                                                 <td>{{ $value->id }}</td>
-                                                <td>{{ $value->title }}</td>
-                                                <td>{{ $value->created_by_name }}</td>
+                                                <td>{{ $value->name }}</td>
+                                                <td>{{ $value->code }}</td>
                                                 <td>{{ $value->status == 'Active' ? 'Active' : 'Inactive' }}</td>
+                                                <td>{{ $value->created_by_name }}</td>
                                                 <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
                                                 <td>
-                                                    <a href="{{ url('admin/product/edit/' . $value->id) }}"
+                                                    <a href="{{ url('admin/color/edit/' . $value->id) }}"
                                                         class=" btn btn-primary">Edit</a>
-                                                    <a href="{{ url('admin/product/delete/' . $value->id) }}"
+                                                    <a href="{{ url('admin/color/delete/' . $value->id) }}"
                                                         class=" btn btn-danger">Delete</a>
 
                                                 </td>
@@ -61,9 +63,6 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <div style="padding: 10px; float: right;">
-                                    {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
-                                </div>
                             </div>
 
                         </div>

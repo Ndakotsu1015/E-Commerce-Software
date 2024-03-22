@@ -22,4 +22,15 @@ class Product extends Model
         return self::where('slug', '=', $slug)->count();
 
     }
+
+    static public function getProduct()
+    {
+        return Product::select('products.*', 'users.name as created_by_name')
+            ->join('users', 'users.id', '=', 'products.created_by')
+            ->where('products.is_delete', '=', 'not')
+            ->orderBy('products.id', 'desc')
+            ->paginate(50);
+    }
+
+
 }

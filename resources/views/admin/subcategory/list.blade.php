@@ -33,15 +33,15 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>S/N</th>
+                                            <th style="min-width: 90px;">S/N</th>
                                             <th>Category Name</th>
-                                            <th>Sub Category Name</th>
+                                            <th style="min-width: 200px;">Sub Category Name</th>
                                             <th>Slug</th>
                                             <th>Meta Title</th>
                                             <th>Meta Keywords</th>
                                             <th>Meta Description</th>
-                                            <th>Status</th>
                                             <th style="min-width: 100px;">Created By</th>
+                                            <th>Status</th>
                                             <th style="min-width: 160px;">Created Date</th>
                                             <th style="min-width: 180px;">Action</th>
                                         </tr>
@@ -50,19 +50,20 @@
                                         @foreach ($getRecord as $value)
                                             <tr>
                                                 <td>{{ $value->id }}</td>
-                                                <td>{{ $value->name }}</td>
                                                 <td>{{ $value->category_name }}</td>
+                                                <td>{{ $value->name }}</td>
                                                 <td>{{ $value->slug }}</td>
                                                 <td>{{ $value->meta_title }}</td>
                                                 <td>{{ $value->meta_keywords }}</td>
                                                 <td>{{ $value->meta_description }}</td>
-                                                <td>{{ $value->status == 'Active' ? 'Active' : 'Inactive' }}</td>
                                                 <td>{{ $value->created_by_name }}</td>
+                                                <td>{{ $value->status == 'Active' ? 'Active' : 'Inactive' }}</td>
                                                 <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
                                                 <td style="font-size: 30px;">
                                                     <a href="{{ url('admin/sub_category/edit/' . $value->id) }}"
                                                         class=" btn btn-primary">Edit</a>
-                                                    <a href="{{ url('admin/sub_category/delete/' . $value->id) }}"
+                                                    <a onclick="return confirm('Are you sure you want to Remove?');"
+                                                        href="{{ url('admin/sub_category/delete/' . $value->id) }}"
                                                         class=" btn btn-danger">Delete</a>
 
                                                 </td>

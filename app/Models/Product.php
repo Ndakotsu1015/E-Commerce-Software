@@ -16,13 +16,6 @@ class Product extends Model
     {
         return self::find($id);
     }
-    static public function checkSlug($slug)
-    {
-
-        return self::where('slug', '=', $slug)->count();
-
-    }
-
     static public function getProduct()
     {
         return Product::select('products.*', 'users.name as created_by_name')
@@ -31,6 +24,26 @@ class Product extends Model
             ->orderBy('products.id', 'desc')
             ->paginate(50);
     }
+    static public function checkSlug($slug)
+    {
+
+        return self::where('slug', '=', $slug)->count();
+
+    }
+    public function getColor()
+    {
+        return $this->hasMany(ProductColor::class, 'product_id');
+    }
+    public function getSize()
+    {
+        return $this->hasMany(ProductSize::class, 'product_id');
+    }
+    public function getImage()
+    {
+        return $this->hasMany(ProductImage::class, 'product_id')->orderBy('order_by', 'asc');
+    }
+
+
 
 
 }

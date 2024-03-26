@@ -35,8 +35,8 @@
                                         <tr>
                                             <th>S/N</th>
                                             <th>Title</th>
-                                            <th>Created By</th>
                                             <th>Status</th>
+                                            <th>Created By</th>
                                             <th>Created Date</th>
                                             <th>Action</th>
                                         </tr>
@@ -46,14 +46,19 @@
                                             <tr>
                                                 <td>{{ $value->id }}</td>
                                                 <td>{{ $value->title }}</td>
-                                                <td>{{ $value->created_by_name }}</td>
                                                 <td>{{ $value->status == 'Active' ? 'Active' : 'Inactive' }}</td>
+                                                <td>{{ $value->created_by_name }}</td>
                                                 <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
                                                 <td>
                                                     <a href="{{ url('admin/product/edit/' . $value->id) }}"
                                                         class=" btn btn-primary">Edit</a>
-                                                    <a href="{{ url('admin/product/delete/' . $value->id) }}"
-                                                        class=" btn btn-danger">Delete</a>
+                                                    <a onclick="return confirm('Are you sure you want to Remove?');"
+                                                        href="{{ url('admin/product/delete/' . $value->id) }}"
+                                                        class=" btn btn-danger">
+                                                        Delete</a>
+
+
+
 
                                                 </td>
 

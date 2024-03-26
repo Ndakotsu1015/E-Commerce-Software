@@ -12,7 +12,7 @@ class CategoryController extends Controller
     public function list()
     {
 
-        $data['getRecord'] = Category::getCatgory();
+        $data['getRecord'] = Category::getCategory();
 
         $data['header_title'] = 'Category';
 

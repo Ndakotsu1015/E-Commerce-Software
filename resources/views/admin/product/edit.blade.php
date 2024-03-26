@@ -1,5 +1,6 @@
 @extends('admin.layout.app')
 @section('style')
+    <link rel="stylesheet" href="{{ url('assets/plugins/summernote/summernote-bs4.min.css') }}">
 @endsection
 @section('content')
     <div class="content-wrapper">
@@ -7,7 +8,8 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-12">
-                        <h1>EditProduct</h1>
+
+                        <h1>Edit Product</h1>
                     </div>
                 </div>
             </div>
@@ -18,8 +20,10 @@
 
                     <div class="col-md-12">
 
+                        @include('admin.layout._message')
+
                         <div class="card card-primary">
-                            <form action="" method="post">
+                            <form action="" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 <div class="card-body">
 
@@ -38,25 +42,33 @@
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="categoryname">Category<span style="color: red">*</span></label>
-                                            <select name="category_id" id="ChangeCategory" class="form-control">
+                                            <select name="category_id" id="ChangeCategory" class="form-control" required>
                                                 <option value="">Select Category</option>
                                                 @foreach ($getCategory as $category)
-                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                    <option {{ $product->category_id == $category->id ? 'selected' : '' }}
+                                                        value="{{ $category->id }}">{{ $category->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="categoryname">Sub category <span style="color: red">*</span></label>
-                                            <select name="subcategory_id" class="form-control" id="getSubCategory">
+                                            <select name="sub_category_id" class="form-control" id="getSubCategory"
+                                                required>
                                                 <option value="">Select Sub Category</option>
+                                                @foreach ($getSubCategory as $SubCategory)
+                                                    <option
+                                                        {{ $product->sub_category_id == $SubCategory->id ? 'selected' : '' }}
+                                                        value="{{ $SubCategory->id }}">{{ $SubCategory->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="categoryname">Brand <span style="color: red">*</span></label>
-                                            <select name="brand_id" class="form-control">
+                                            <select name="brand_id" class="form-control" required>
                                                 <option value="">Select Brand</option>
-                                                @foreach ($getBrand as $value)
-                                                    <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                                @foreach ($getBrand as $brand)
+                                                    <option {{ $product->brand_id == $brand->id ? 'selected' : '' }}
+                                                        value="{{ $brand->id }}">{{ $brand->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -64,7 +76,8 @@
                                             <label>Status</label>
                                             <select name="status" class="form-control" required>
                                                 <option value=""> Select Status</option>
-                                                <option {{ $product->status == 'Active' ? 'selected' : '' }} value="Active">
+                                                <option {{ $product->status == 'Active' ? 'selected' : '' }}
+                                                    value="Active">
                                                     Active</option>
                                                 <option {{ $product->status == 'Inactive' ? 'selected' : '' }}
                                                     value="Inactive">Inactive</option>
@@ -79,7 +92,17 @@
                                                 <label>Color <span style="color:red">*</span></label>
                                                 <div>
                                                     @foreach ($getColor as $color)
-                                                        <label><input type="checkbox" name="color_id[]"
+                                                        @php
+                                                            $checked = '';
+                                                        @endphp
+                                                        @foreach ($product->getColor as $pcolor)
+                                                            @if ($pcolor->color_id == $color->id)
+                                                                @php
+                                                                    $checked = 'checked';
+                                                                @endphp
+                                                            @endif
+                                                        @endforeach
+                                                        <label><input {{ $checked }} type="checkbox" name="color_id[]"
                                                                 value="{{ $color->id }}"> {{ $color->name }}</label>
                                                     @endforeach
                                                 </div>
@@ -95,14 +118,14 @@
                                         <div class="form-group col-md-6">
                                             <label for="price">Price (₦)<span style="color:red">*</span></label>
                                             <input type="number" name="new_price" class="form-control" id="title"
-                                                value="{{ old('new_price', $product->new_price) }}" required
-                                                placeholder="Price">
+                                                value="{{ old('new_price', !empty($product->new_price) ? $product->new_price : '') }}"
+                                                required placeholder="Price">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="old_price">Old Price (₦)<span style="color:red">*</span></label>
                                             <input type="number" name="old_price" class="form-control" id="old_price"
-                                                value="{{ old('old_price', $product->old_price) }}" required
-                                                placeholder="Price">
+                                                value="{{ old('old_price', !empty($product->old_price) ? $product->old_price : '') }}"
+                                                required placeholder="Price">
                                         </div>
                                     </div>
 
@@ -119,21 +142,50 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody id="AppendSize">
+                                                        @php
+                                                            $i_s = 1;
+                                                        @endphp
+                                                        @foreach ($product->getSize as $size)
+                                                            <tr id="DeleteSize{{ $i_s }}">
+                                                                <td>
+                                                                    <input type="text"
+                                                                        name="size[{{ $i_s }}][name]"
+                                                                        value="{{ $size->name }}" placeholder="Name"
+                                                                        class="form-control">
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" value="{{ $size->price }}"
+                                                                        name="size[{{ $i_s }}][price]"
+                                                                        placeholder="Price" class="form-control">
+                                                                </td>
+                                                                <td style="width: 200px;">
+                                                                    <button type="button" id="{{ $i_s }}"
+                                                                        class="btn btn-danger DeletSize"> Delete
+
+
+                                                                </td>
+                                                            </tr>
+                                                            @php
+                                                                $i_s++;
+                                                            @endphp
+                                                        @endforeach
                                                         <tr>
                                                             <td>
-                                                                <input type="text" name="" placeholder="Name"
-                                                                    class="form-control">
+                                                                <input type="text" name="size[100][name]"
+                                                                    placeholder="Name" class="form-control">
                                                             </td>
                                                             <td>
-                                                                <input type="text" name="" placeholder="Price"
-                                                                    class="form-control">
+                                                                <input type="text" name="size[100][price]"
+                                                                    placeholder="Price" class="form-control">
                                                             </td>
                                                             <td style="width: 200px;">
-                                                                <button type="button"
-                                                                    class="btn btn-primary AddSize">Add</button>
+                                                                <button type="button" id=""
+                                                                    class="btn btn-primary AddSize"> Add
+
 
                                                             </td>
                                                         </tr>
+
 
                                                     </tbody>
                                                 </table>
@@ -141,86 +193,137 @@
 
                                         </div>
                                     </div>
-                                    <hr>
+                                    <hr />
+
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label for="name">Image Upload<span style="color: red">*</span></label>
+                                            <input type="file" multiple accept="image/*" name="image[]"
+                                                class="form-control" style="padding: 5px;">
+                                        </div>
+                                    </div>
+                                    @if (!empty($product->getImage->count()))
+                                        <div class="row p-3" id="sortable">
+                                            @foreach ($product->getImage as $image)
+                                                @if (!@empty($image->getImages()))
+                                                    <div class="col-md-1 sortable_image" style="text-align: center"
+                                                        id="{{ $image->id }}">
+                                                        <img src="{{ $image->getImages() }}" alt=""
+                                                            style="width: 100%; height:100px;">
+                                                        <a onclick="return confirm('Are you sure you want to delete?');"
+                                                            href="{{ url('admin/product/image_delete/' . $image->id) }}"
+                                                            class="btn btn-danger btn-sm"
+                                                            style="text-align: center; margin-top:10px;">Remove</a>
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    @endif
+
+                                    <hr />
                                     <div class="row p-3">
-                                        <div class="form-group col-md-3">
+                                        <div class="form-group col-md-6">
                                             <label for="name">Short Description <span
                                                     style="color: red">*</span></label>
-                                            <textarea class="form-control" name="short_description" placeholder="Short Description">
+                                            <textarea class="form-controle editor" name="short_description" placeholder="Short Description">
+                                                {{ $product->short_description }}
                                             </textarea>
                                         </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="name">Description <span style="color: red">*</span></label>
-                                            <textarea class="form-control" name="description" placeholder="Description">
-                                            </textarea>
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="name">Additional Information <span
-                                                    style="color: red">*</span></label>
-                                            <textarea class="form-control" name="additional_information" placeholder="Additional Information">
-                                            </textarea>
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="name">Shipping & Returns <span
-                                                    style="color: red">*</span></label>
-                                            <textarea class="form-control" name="additional_information" placeholder="Shipping & Returns">
+                                        <div class="form-group col-md-6">
+                                            <label for="name">Description<span style="color: red">*</span></label>
+                                            <textarea class="form-control editor" name="description" placeholder="Description">
+                                                {{ $product->description }}
                                             </textarea>
                                         </div>
                                     </div>
-
-
-
-
-                                    <hr>
-                                    <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+                                <div class="row p-3">
+                                    <div class="form-group col-md-6">
+                                        <label for="name">Additional Information <span
+                                                style="color: red">*</span></label>
+                                        <textarea class="form-controle editor" name="additional_information" placeholder="Additional Information">
+                                                {{ $product->additional_information }}
+                                            </textarea>
                                     </div>
-
-
+                                    <div class="form-group col-md-6">
+                                        <label for="name">Shipping & Returns <span style="color: red">*</span></label>
+                                        <textarea class="form-control editor" name="shipping_returns" placeholder="Shipping & Returns">
+                                                {{ $product->shipping_returns }}
+                                            </textarea>
+                                    </div>
                                 </div>
 
+                                <hr>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
                         </div>
-                        </form>
+
+
+
+
+
+
+
                     </div>
+
                 </div>
+                </form>
             </div>
+    </div>
+    </div>
     </div>
     </section>
     </div>
 @endsection
 
 @section('script')
+    <script src="{{ url('assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
+    <script src="{{ url('sortable/jquery-ui.js') }}"></script>
+
+
     <script type="text/javascript">
-        // var i = 1000;
-        // $('body').delegate('.AddSize', 'click', function() {
+        $(document).ready(function() {
+            $("#sortable").sortable({
+                update: function(event, ui) {
+                    var photo_id = new Array();
+                    $('.sortable_image').each(function() {
+                        var id = $(this).attr('id');
+                        photo_id.push(id);
 
-        //     var html = '<tr id="DeleteSize' + i + '">' +
-        //         '<td>' +
-        //         '<input type="text" name="" value="' + i + '" class="form-control">' +
-        //         '</td>' +
-        //         '<td>' +
-        //         '<input type="text" name="" class="form-control">' +
-        //         '</td>' +
-        //         '<td>' +
-        //         '<button type="button" id="' + i + '" class="btn btn-danger DeleteSize">Delete</button>' +
-        //         '</td>' +
-        //         '</tr>';
-        //     i++;
-        //     $('#AppendSize').append(html);
-        // });
+                    });
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ url('admin/product_image_sortable') }}",
+                        data: {
+                            "photo_id": photo_id,
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        dataType: "json",
+                        success: function(data) {
 
-        // $('body').delegate('.DeleteSize', 'click', function() {
-        //     var id = $(this).attr('id');
-        //     $('$DeleteSize' + id).remove();
-        // });
-        var i = 1000;
+
+                        },
+                        error: function(data) {
+
+                        }
+                    });
+                }
+            });
+        });
+        $('.editor').summernote({
+            height: 200
+
+        });
+
+        var i = 100;
         $('body').on('click', '.AddSize', function() {
             var html = '<tr id="DeleteSize' + i + '">' +
                 '<td>' +
-                '<input type="text" name="" placeholder="Name" class="form-control">' +
+                '<input type="text" name="size[' + i + '][name]" placeholder="Name" class="form-control">' +
                 '</td>' +
                 '<td>' +
-                '<input type="text" name=""  placeholder="Price" class="form-control">' +
+                '<input type="text" name="size[' + i + '][price]" placeholder="Price" class="form-control">' +
                 '</td>' +
                 '<td>' +
                 '<button type="button" id="' + i + '" class="btn btn-danger DeleteSize">Delete</button>' +

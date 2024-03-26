@@ -60,7 +60,8 @@
                                                 <td>
                                                     <a href="{{ url('admin/brand/edit/' . $value->id) }}"
                                                         class=" btn btn-primary">Edit</a>
-                                                    <a href="{{ url('admin/brand/delete/' . $value->id) }}"
+                                                    <a onclick="return confirm('Are you sure you want to Remove?');"
+                                                        href="{{ url('admin/brand/delete/' . $value->id) }}"
                                                         class=" btn btn-danger">Delete</a>
 
                                                 </td>

@@ -50,7 +50,8 @@
                                                 <td>
                                                     <a href="{{ url('admin/admin/edit/' . $value->id) }}"
                                                         class=" btn btn-primary">Edit</a>
-                                                    <a href="{{ url('admin/admin/delete/' . $value->id) }}"
+                                                    <a onclick="return confirm('Are you sure you want to Remove?');"
+                                                        href="{{ url('admin/admin/delete/' . $value->id) }}"
                                                         class=" btn btn-danger">Delete</a>
 
                                                 </td>

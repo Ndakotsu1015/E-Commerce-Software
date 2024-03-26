@@ -53,13 +53,14 @@
                                                 <td>{{ $value->meta_title }}</td>
                                                 <td>{{ $value->meta_keywords }}</td>
                                                 <td>{{ $value->meta_description }}</td>
-                                                <td>{{ $value->status == 'Active' ? 'Active' : 'Inactive' }}</td>
                                                 <td>{{ $value->created_by_name }}</td>
+                                                <td>{{ $value->status == 'Active' ? 'Active' : 'Inactive' }}</td>
                                                 <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
                                                 <td>
                                                     <a href="{{ url('admin/category/edit/' . $value->id) }}"
                                                         class=" btn btn-primary">Edit</a>
-                                                    <a href="{{ url('admin/category/delete/' . $value->id) }}"
+                                                    <a onclick="return confirm('Are you sure you want to Remove?');"
+                                                        href="{{ url('admin/category/delete/' . $value->id) }}"
                                                         class=" btn btn-danger">Delete</a>
 
                                                 </td>

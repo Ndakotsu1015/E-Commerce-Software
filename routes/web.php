@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -74,8 +75,10 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/product/add', [ProductController::class, 'add']);
     Route::post('admin/product/add', [ProductController::class, 'insert']);
     Route::get('admin/product/edit/{id}', [ProductController::class, 'edit']);
-    // Route::post('admin/product/edit/{id}', [ProductController::class, 'update']);
-    // Route::get('admin/product/delete/{id}', [ProductController::class, 'delete']);
+    Route::post('admin/product/edit/{id}', [ProductController::class, 'update']);
+    Route::get('admin/product/image_delete/{id}', [ProductController::class, 'imageDelete']);
+    Route::post('admin/product_image_sortable', [ProductController::class, 'ProductImageSortable']);
+    Route::get('admin/product/delete/{id}', [ProductController::class, 'delete']);
 
     //Brand  Routes
     Route::get('admin/brand/list', [BrandController::class, 'List']);
@@ -95,8 +98,4 @@ Route::group(['middleware' => 'admin'], function () {
 });
 
 
-
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'home']);

@@ -33,4 +33,19 @@ class Category extends Model
             ->orderBy('categories.name', 'asc')
             ->get();
     }
+    static public function getCategoryMenu()
+    {
+        return Category::select('categories.*')
+            ->join('users', 'users.id', '=', 'categories.created_by')
+            ->where('categories.is_delete', '=', 'not')
+            ->where('categories.status', '=', 'Active')
+            ->get();
+    }
+
+    public function getSubCategory()
+    {
+        return $this->hasMany(SubCategory::class, 'category_id')
+            ->where('sub_categories.status', '=', 'Active')
+            ->where('sub_categories.is_delete', '=', 'not');
+    }
 }

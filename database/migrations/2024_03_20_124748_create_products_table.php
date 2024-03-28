@@ -24,9 +24,9 @@ return new class extends Migration {
             $table->longText('description')->nullable();
             $table->text('additional_information')->nullable();
             $table->text('shipping_returns')->nullable();
-            $table->enum('status', ["Active", "Inactive"])->nullable();
+            $table->enum('status', ["Active", "Inactive"])->default('Active');
             $table->string('created_by')->nullable();
-            $table->enum('is_delete', ["not", "deleted"])->nullable();
+            $table->enum('is_delete', ["not", "deleted"])->default('not');
             $table->timestamps();
         });
     }

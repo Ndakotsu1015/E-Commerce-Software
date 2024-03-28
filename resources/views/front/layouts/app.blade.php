@@ -6,14 +6,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>E-Commerce</title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta name="author" content="p-themes">
+    <title>{{ !empty($meta_title) ? $meta_title : '' }}</title>
 
+    @if (!empty($meta_description))
+        <meta name="keywords" content="{{ $meta_description }}">
+    @endif
 
-
-
+    @if (!empty($meta_keywords))
+        <meta name="keywords" content="{{ $meta_keywords }}">
+    @endif
     <link rel="shortcut icon" href="{{ url('front/assets/images/icons/favicon.ico') }}">
 
     <!-- Plugins CSS File -->
@@ -164,7 +165,7 @@
                         </div>
                     </div>
                     <div class="col-xl-2-5col col-lg-5 ">
-                        <img src="front/assets/images/popup/newsletter/img-1.jpg" class="newsletter-img"
+                        <img src="{{ url('front/assets/images/popup/newsletter/img-1.jpg') }}" class="newsletter-img"
                             alt="newsletter">
                     </div>
                 </div>

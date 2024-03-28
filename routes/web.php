@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController as ProductFront;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -99,3 +100,5 @@ Route::group(['middleware' => 'admin'], function () {
 
 
 Route::get('/', [HomeController::class, 'home']);
+
+Route::get('{category?}/{subcategory?}', [ProductFront::class, 'getCategory']);

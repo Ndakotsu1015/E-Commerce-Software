@@ -15,6 +15,13 @@ class Category extends Model
     {
         return Category::find($id);
     }
+    static public function getSingleSlug($slug)
+    {
+        return Category::where('slug', '=', $slug)
+            ->where('categories.status', '=', 'Active')
+            ->where('categories.is_delete', '=', 'not')
+            ->first();
+    }
 
     static public function getCategory()
     {

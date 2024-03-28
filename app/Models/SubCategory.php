@@ -14,6 +14,13 @@ class SubCategory extends Model
     {
         return self::find($id);
     }
+    static public function getSingleSubSlug($subslug)
+    {
+        return SubCategory::where('slug', '=', $subslug)
+            ->where('sub_categories.status', '=', 'Active')
+            ->where('sub_categories.is_delete', '=', 'not')
+            ->first();
+    }
     static public function getSubCategory()
     {
         return SubCategory::select('sub_categories.*', 'users.name as created_by_name', 'categories.name as category_name')

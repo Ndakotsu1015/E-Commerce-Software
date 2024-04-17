@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{ url('front/assets/css/plugins/magnific-popup/magnific-popup.css') }}">
     <!-- Main CSS File -->
     <link rel="stylesheet" href="{{ url('front/assets/css/style.css') }}">
+    @yield('style')
 </head>
 
 <body>
@@ -137,7 +138,7 @@
         </div>
     </div>
 
-    <div class="container newsletter-popup-container mfp-hide" id="newsletter-popup-form">
+    {{-- <div class="container newsletter-popup-container mfp-hide" id="newsletter-popup-form">
         <div class="row justify-content-center">
             <div class="col-10">
                 <div class="row no-gutters bg-white newsletter-popup-content">
@@ -171,7 +172,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- Plugins JS File -->
     <script src="{{ url('front/assets/js/jquery.min.js') }}"></script>
     <script src="{{ url('front/assets/js/bootstrap.bundle.min.js') }}"></script>
@@ -180,8 +181,12 @@
     <script src="{{ url('front/assets/js/superfish.min.js') }}"></script>
     <script src="{{ url('front/assets/js/owl.carousel.min.js') }}"></script>
     <script src="{{ url('front/assets/js/jquery.magnific-popup.min.js') }}"></script>
+
+    @yield('script')
     <!-- Main JS File -->
     <script src="{{ url('front/assets/js/main.js') }}"></script>
+
+
 </body>
 
 </html>

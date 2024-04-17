@@ -37,9 +37,9 @@
                                             <th>Category Name</th>
                                             <th style="min-width: 200px;">Sub Category Name</th>
                                             <th>Slug</th>
-                                            <th>Meta Title</th>
+                                            {{-- <th>Meta Title</th>
                                             <th>Meta Keywords</th>
-                                            <th>Meta Description</th>
+                                            <th>Meta Description</th> --}}
                                             <th style="min-width: 100px;">Created By</th>
                                             <th>Status</th>
                                             <th style="min-width: 160px;">Created Date</th>
@@ -53,9 +53,9 @@
                                                 <td>{{ $value->category_name }}</td>
                                                 <td>{{ $value->name }}</td>
                                                 <td>{{ $value->slug }}</td>
-                                                <td>{{ $value->meta_title }}</td>
+                                                {{-- <td>{{ $value->meta_title }}</td>
                                                 <td>{{ $value->meta_keywords }}</td>
-                                                <td>{{ $value->meta_description }}</td>
+                                                <td>{{ $value->meta_description }}</td> --}}
                                                 <td>{{ $value->created_by_name }}</td>
                                                 <td>{{ $value->status == 'Active' ? 'Active' : 'Inactive' }}</td>
                                                 <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
@@ -81,10 +81,7 @@
                         </div>
 
                     </div>
-
                 </div>
-
-
             </div>
         </section>
 

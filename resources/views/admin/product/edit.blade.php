@@ -255,6 +255,7 @@
 
                                 <hr>
                                 <div class="card-footer">
+                                    <a href="{{ url('admin/product/list') }}" class="btn btn-outline-danger">Previous</a>
                                     <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
                         </div>

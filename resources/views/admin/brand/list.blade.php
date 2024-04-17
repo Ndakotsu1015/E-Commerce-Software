@@ -36,9 +36,9 @@
                                             <th>S/N</th>
                                             <th>Name</th>
                                             <th>Slug</th>
-                                            <th>Meta Title</th>
+                                            {{-- <th>Meta Title</th>
                                             <th>Meta Keywords</th>
-                                            <th>Meta Description</th>
+                                            <th>Meta Description</th> --}}
                                             <th>Status</th>
                                             <th>Created By</th>
                                             <th>Created date</th>
@@ -51,9 +51,9 @@
                                                 <td>{{ $value->id }}</td>
                                                 <td>{{ $value->name }}</td>
                                                 <td>{{ $value->slug }}</td>
-                                                <td>{{ $value->meta_title }}</td>
+                                                {{-- <td>{{ $value->meta_title }}</td>
                                                 <td>{{ $value->meta_keywords }}</td>
-                                                <td>{{ $value->meta_description }}</td>
+                                                <td>{{ $value->meta_description }}</td> --}}
                                                 <td>{{ $value->status == 'Active' ? 'Active' : 'Inactive' }}</td>
                                                 <td>{{ $value->created_by_name }}</td>
                                                 <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>

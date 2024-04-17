@@ -74,17 +74,17 @@
                                 <hr>
 
                                 <div class="card-footer">
+                                    <a href="{{ url('admin/category/list') }}" class="btn btn-outline-danger">Previous</a>
                                     <button type="submit" class="btn btn-primary">Update</button>
-                                    <a href="admin/category/list">
-                                        <button type="submit" class="btn btn-warning">Back</button>
-                                    </a>
                                 </div>
-                            </form>
+                                </a>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </section>
+    </div>
+    </section>
     </div>
 @endsection
 

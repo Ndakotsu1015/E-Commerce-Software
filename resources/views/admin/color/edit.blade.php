@@ -50,22 +50,22 @@
                                     <hr>
 
                                     <div class="card-footer">
+                                        <a href="{{ url('admin/color/list') }}" class="btn btn-outline-danger">Previous</a>
                                         <button type="submit" class="btn btn-primary">Update</button>
-                                        <a href="admin/brand/list">
-                                            <button type="submit" class="btn btn-warning">Back</button>
-                                        </a>
                                     </div>
-
+                                    </a>
                                 </div>
 
-
-
-                            </form>
                         </div>
+
+
+
+                        </form>
                     </div>
                 </div>
             </div>
-        </section>
+    </div>
+    </section>
     </div>
 @endsection
 

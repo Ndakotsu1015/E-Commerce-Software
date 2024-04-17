@@ -70,11 +70,12 @@ class AdminController extends Controller
         $user = User::getSingle($id);
         $user->name = $request->name;
         $user->email = $email;
-        if (!empty ($request->password)) {
+        if (!empty($request->password)) {
             $user->password = Hash::make($request->password);
         }
         $user->status = $request->status;
         $user->user_type = "Admin";
+        ;
         $user->save();
 
         return redirect('admin/admin/list')->with('success', 'Admin Successfuly Updated!');

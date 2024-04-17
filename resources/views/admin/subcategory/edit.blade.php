@@ -72,7 +72,7 @@
                                             placeholder="Meta Title">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="meta_keywords">Name</label>
+                                        <label for="meta_keywords">Meta Keywords</label>
                                         <input type="text" name="meta_keywords" class="form-control"
                                             value="{{ old('meta_keywords', $getRecord->slug) }}" id="meta_keywords"
                                             placeholder="Meta Keywords">
@@ -85,19 +85,20 @@
                                 </div>
                                 <hr>
                                 <div class="card-footer">
+                                    <a href="{{ url('admin/sub_category/list') }}"
+                                        class="btn btn-outline-danger">Previous</a>
                                     <button type="submit" class="btn btn-primary">Update</button>
-                                    <a href="admin/category/list">
-                                        <button type="submit" class="btn btn-warning">Back</button>
-                                    </a>
                                 </div>
 
                         </div>
 
-
-                        </form>
                     </div>
+
+
+                    </form>
                 </div>
             </div>
+    </div>
     </div>
     </section>
     </div>

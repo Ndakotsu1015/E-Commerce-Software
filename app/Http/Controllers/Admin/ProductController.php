@@ -42,7 +42,7 @@ class ProductController extends Controller
 
         $checkSlug = Product::checkSlug($slug);
 
-        if (empty ($checkSlug)) {
+        if (empty($checkSlug)) {
             $product->slug = $slug;
             $product->save();
         } else {
@@ -58,7 +58,7 @@ class ProductController extends Controller
     {
         $product = Product::getSingle($product_id);
 
-        if (!empty ($product)) {
+        if (!empty($product)) {
 
             $data['getCategory'] = Category::getCategoryActive();
             $data['getBrand'] = Brand::getBrandActive();
@@ -76,7 +76,7 @@ class ProductController extends Controller
     {
         $product = Product::getSingle($product_id);
 
-        if (!empty ($product)) {
+        if (!empty($product)) {
 
             $product->title = trim($request->title);
             $product->sku = trim($request->sku);
@@ -94,7 +94,7 @@ class ProductController extends Controller
 
             ProductColor::DeleteRecord($product->id);
 
-            if (!empty ($request->color_id)) {
+            if (!empty($request->color_id)) {
 
                 foreach ($request->color_id as $color_id) {
 
@@ -111,16 +111,16 @@ class ProductController extends Controller
             }
 
             ProductSize::DeleteRecord($product->id);
-            if (!empty ($request->size)) {
+            if (!empty($request->size)) {
 
                 foreach ($request->size as $size) {
 
-                    if (!empty ($size['name'])) {
+                    if (!empty($size['name'])) {
                         $saveSize = new ProductSize;
 
                         $saveSize->name = $size['name'];
 
-                        $saveSize->price = !empty ($size['price']) ? $size['price'] : 0;
+                        $saveSize->price = !empty($size['price']) ? $size['price'] : 0;
 
                         $saveSize->product_id = $product->id;
 
@@ -130,7 +130,7 @@ class ProductController extends Controller
                 }
             }
 
-            if (!empty ($request->file('image'))) {
+            if (!empty($request->file('image'))) {
 
                 foreach ($request->file('image') as $value) {
 
@@ -150,7 +150,8 @@ class ProductController extends Controller
                 }
             }
 
-            return redirect()->back()->with('success', 'Product Successfully Updated!');
+            // return redirect()->back()->with('success', 'Product Successfully Updated!');
+            return redirect('admin/product/list')->with('success', 'Product Successfully Updated!');
 
         } else {
             abort(404);
@@ -171,7 +172,7 @@ class ProductController extends Controller
     {
 
         $image = ProductImage::getSingle($id);
-        if (!empty ($image->getImages())) {
+        if (!empty($image->getImages())) {
             unlink('uploads/products/' . $image->image_name);
         }
         $image->delete();
@@ -180,7 +181,7 @@ class ProductController extends Controller
     }
     public function ProductImageSortable(Request $request)
     {
-        if (!empty ($request->photo_id)) {
+        if (!empty($request->photo_id)) {
             $i = 1;
             foreach ($request->photo_id as $photo_id) {
                 $image = ProductImage::getSingle($photo_id);

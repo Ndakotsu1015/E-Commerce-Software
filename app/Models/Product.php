@@ -89,7 +89,32 @@ class Product extends Model
             ->where('products.status', '=', 'Active')
             ->groupBy('products.id')
             ->orderBy('products.id', 'desc')
-            ->paginate(2);
+            ->paginate(30);
+
+        return $return;
+
+    }
+    static public function getRelatedProduct($product_id, $sub_category_id)
+    {
+        $return = Product::select(
+            'products.*',
+            'users.name as created_by_name',
+            'categories.name as category_name',
+            'sub_categories.name as sub_category_name',
+            'categories.slug as category_slug',
+            'sub_categories.slug as sub_category_slug'
+        )
+            ->join('users', 'users.id', '=', 'products.created_by')
+            ->join('categories', 'categories.id', '=', 'products.category_id')
+            ->join('sub_categories', 'sub_categories.id', '=', 'products.sub_category_id')
+            ->where('products.id', '!=', $product_id)
+            ->where('products.sub_category_id', '=', $sub_category_id)
+            ->where('products.is_delete', '=', 'not')
+            ->where('products.status', '=', 'Active')
+            ->groupBy('products.id')
+            ->orderBy('products.id', 'desc')
+            ->limit(10)
+            ->get();
 
         return $return;
 
@@ -102,6 +127,7 @@ class Product extends Model
             ->orderBy('products.id', 'desc')
             ->paginate(50);
     }
+
     static public function checkSlug($slug)
     {
 
@@ -134,11 +160,15 @@ class Product extends Model
             ->where('products.is_delete', '=', 'not')
             ->where('products.status', '=', 'Active')
             ->first();
-
-
     }
+    public function getCategory()
+    {
 
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+    public function getSubCategory()
+    {
 
-
-
+        return $this->belongsTo(SubCategory::class, 'sub_category_id');
+    }
 }

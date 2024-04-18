@@ -156,27 +156,27 @@
                             }
                         }'>
                     <a href="#" class="brand">
-                        <img src="front/assets/images/brands/1.png" alt="Brand Name">
+                        <img src="{{ url('front/assets/images/brands/1.png') }}" alt="Brand Name">
                     </a>
 
                     <a href="#" class="brand">
-                        <img src="front/assets/images/brands/2.png" alt="Brand Name">
+                        <img src="{{ url('front/assets/images/brands/2.png') }}" alt="Brand Name">
                     </a>
 
                     <a href="#" class="brand">
-                        <img src="front/assets/images/brands/3.png" alt="Brand Name">
+                        <img src="{{ url('front/assets/images/brands/3.png') }}" alt="Brand Name">
                     </a>
 
                     <a href="#" class="brand">
-                        <img src="front/assets/images/brands/4.png" alt="Brand Name">
+                        <img src="{{ url('front/assets/images/brands/4.png') }}" alt="Brand Name">
                     </a>
 
                     <a href="#" class="brand">
-                        <img src="front/assets/images/brands/5.png" alt="Brand Name">
+                        <img src="{{ url('front/assets/images/brands/5.png') }}" alt="Brand Name">
                     </a>
 
                     <a href="#" class="brand">
-                        <img src="front/assets/images/brands/6.png" alt="Brand Name">
+                        <img src="{{ url('front/assets/images/brands/6.png') }}" alt="Brand Name">
                     </a>
                 </div><!-- End .owl-carousel -->
             </div><!-- End .container -->
@@ -240,9 +240,9 @@
                         <div class="product product-11 text-center">
                             <figure class="product-media">
                                 <a href="product.html">
-                                    <img src="front/assets/images/demos/demo-2/products/product-1-1.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-1-1.jpg') }}"
                                         alt="Product image" class="product-image">
-                                    <img src="front/assets/images/demos/demo-2/products/product-1-2.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-1-2.jpg') }}"
                                         alt="Product image" class="product-image-hover">
                                 </a>
 
@@ -256,7 +256,7 @@
                                 <h3 class="product-title"><a href="product.html">Butler Stool Ladder</a></h3>
                                 <!-- End .product-title -->
                                 <div class="product-price">
-                                    ₦251,00
+                                    ₦251,00.00
                                 </div><!-- End .product-price -->
                             </div><!-- End .product-body -->
                             <div class="product-action">
@@ -267,9 +267,9 @@
                         <div class="product product-11 text-center">
                             <figure class="product-media">
                                 <a href="product.html">
-                                    <img src="front/assets/images/demos/demo-2/products/product-2-1.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-2-1.jpg') }}"
                                         alt="Product image" class="product-image">
-                                    <img src="front/assets/images/demos/demo-2/products/product-2-2.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-2-2.jpg') }}"
                                         alt="Product image" class="product-image-hover">
                                 </a>
 
@@ -283,7 +283,7 @@
                                 <h3 class="product-title"><a href="product.html">Octo 4240</a></h3>
                                 <!-- End .product-title -->
                                 <div class="product-price">
-                                    ₦746,00
+                                    ₦746,00.00
                                 </div><!-- End .product-price -->
 
                                 <div class="product-nav product-nav-dots">
@@ -302,9 +302,9 @@
                             <figure class="product-media">
                                 <span class="product-label label-new">NEW</span>
                                 <a href="product.html">
-                                    <img src="front/assets/images/demos/demo-2/products/product-3-1.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-3-1.jpg') }}"
                                         alt="Product image" class="product-image">
-                                    <img src="front/assets/images/demos/demo-2/products/product-3-2.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-3-2.jpg') }}"
                                         alt="Product image" class="product-image-hover">
                                 </a>
 
@@ -319,7 +319,7 @@
                                 <h3 class="product-title"><a href="product.html">Flow Slim Armchair</a></h3>
                                 <!-- End .product-title -->
                                 <div class="product-price">
-                                    ₦970,00
+                                    ₦970,00.00
                                 </div><!-- End .product-price -->
                             </div><!-- End .product-body -->
                             <div class="product-action">
@@ -331,9 +331,9 @@
                             <figure class="product-media">
                                 <span class="product-label label-sale">30% OFF</span>
                                 <a href="product.html">
-                                    <img src="front/assets/images/demos/demo-2/products/product-4-1.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-4-1.jpg') }}"
                                         alt="Product image" class="product-image">
-                                    <img src="front/assets/images/demos/demo-2/products/product-4-2.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-4-2.jpg') }}"
                                         alt="Product image" class="product-image-hover">
                                 </a>
 
@@ -348,7 +348,7 @@
                                 <h3 class="product-title"><a href="product.html">Roots Sofa Bed</a></h3>
                                 <!-- End .product-title -->
                                 <div class="product-price">
-                                    <span class="new-price">₦337,00</span>
+                                    <span class="new-price">₦337,00.00</span>
                                     <span class="old-price">Was ₦449,00</span>
                                 </div><!-- End .product-price -->
 
@@ -367,9 +367,9 @@
                         <div class="product product-11 text-center">
                             <figure class="product-media">
                                 <a href="product.html">
-                                    <img src="front/assets/images/demos/demo-2/products/product-5-1.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-5-1.jpg') }}"
                                         alt="Product image" class="product-image">
-                                    <img src="front/assets/images/demos/demo-2/products/product-5-2.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-5-2.jpg') }}"
                                         alt="Product image" class="product-image-hover">
                                 </a>
 
@@ -402,9 +402,9 @@
                         <div class="product product-11 text-center">
                             <figure class="product-media">
                                 <a href="product.html">
-                                    <img src="front/assets/images/demos/demo-2/products/product-6-1.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-6-1.jpg') }}"
                                         alt="Product image" class="product-image">
-                                    <img src="front/assets/images/demos/demo-2/products/product-6-2.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-6-2.jpg') }}"
                                         alt="Product image" class="product-image-hover">
                                 </a>
 
@@ -419,7 +419,7 @@
                                 <h3 class="product-title"><a href="product.html">Elephant Armchair</a></h3>
                                 <!-- End .product-title -->
                                 <div class="product-price">
-                                    ₦457,00
+                                    ₦457,00.00
                                 </div><!-- End .product-price -->
                             </div><!-- End .product-body -->
                             <div class="product-action">
@@ -430,9 +430,9 @@
                         <div class="product product-11 text-center">
                             <figure class="product-media">
                                 <a href="product.html">
-                                    <img src="front/assets/images/demos/demo-2/products/product-1-1.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-1-1.jpg') }}"
                                         alt="Product image" class="product-image">
-                                    <img src="front/assets/images/demos/demo-2/products/product-1-2.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-1-2.jpg') }}"
                                         alt="Product image" class="product-image-hover">
                                 </a>
 
@@ -487,9 +487,9 @@
                             <figure class="product-media">
                                 <span class="product-label label-new">NEW</span>
                                 <a href="product.html">
-                                    <img src="front/assets/images/demos/demo-2/products/product-3-1.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-3-1.jpg') }}"
                                         alt="Product image" class="product-image">
-                                    <img src="front/assets/images/demos/demo-2/products/product-3-2.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-3-2.jpg') }}"
                                         alt="Product image" class="product-image-hover">
                                 </a>
 
@@ -516,9 +516,9 @@
                             <figure class="product-media">
                                 <span class="product-label label-sale">30% OFF</span>
                                 <a href="product.html">
-                                    <img src="front/assets/images/demos/demo-2/products/product-4-1.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-4-1.jpg') }}"
                                         alt="Product image" class="product-image">
-                                    <img src="front/assets/images/demos/demo-2/products/product-4-2.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-4-2.jpg') }}"
                                         alt="Product image" class="product-image-hover">
                                 </a>
 
@@ -581,9 +581,9 @@
                         <div class="product product-11 text-center">
                             <figure class="product-media">
                                 <a href="product.html">
-                                    <img src="front/assets/images/demos/demo-2/products/product-1-1.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-1-1.jpg') }}"
                                         alt="Product image" class="product-image">
-                                    <img src="front/assets/images/demos/demo-2/products/product-1-2.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-1-2.jpg') }}"
                                         alt="Product image" class="product-image-hover">
                                 </a>
 
@@ -607,9 +607,9 @@
                         <div class="product product-11 text-center">
                             <figure class="product-media">
                                 <a href="product.html">
-                                    <img src="front/assets/images/demos/demo-2/products/product-6-1.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-6-1.jpg') }}"
                                         alt="Product image" class="product-image">
-                                    <img src="front/assets/images/demos/demo-2/products/product-6-2.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-6-2.jpg') }}"
                                         alt="Product image" class="product-image-hover">
                                 </a>
 
@@ -664,9 +664,9 @@
                         <div class="product product-11 text-center">
                             <figure class="product-media">
                                 <a href="product.html">
-                                    <img src="front/assets/images/demos/demo-2/products/product-2-1.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-2-1.jpg') }}"
                                         alt="Product image" class="product-image">
-                                    <img src="front/assets/images/demos/demo-2/products/product-2-2.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-2-2.jpg') }}"
                                         alt="Product image" class="product-image-hover">
                                 </a>
 
@@ -697,9 +697,9 @@
                         <div class="product product-11 text-center">
                             <figure class="product-media">
                                 <a href="product.html">
-                                    <img src="front/assets/images/demos/demo-2/products/product-5-1.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-5-1.jpg') }}"
                                         alt="Product image" class="product-image">
-                                    <img src="front/assets/images/demos/demo-2/products/product-5-2.jpg"
+                                    <img src="{{ url('front/assets/images/demos/demo-2/products/product-5-2.jpg') }}"
                                         alt="Product image" class="product-image-hover">
                                 </a>
 
@@ -740,7 +740,7 @@
                 <div class="col-6 col-lg-4">
                     <div class="banner banner-display banner-link-anim">
                         <a href="#">
-                            <img src="front/assets/images/banners/home/banner-1.jpg" alt="Banner">
+                            <img src="{{ url('front/assets/images/banners/home/banner-1.jpg') }}" alt="Banner">
                         </a>
 
                         <div class="banner-content banner-content-center">
@@ -782,7 +782,7 @@
 
                         <div class="banner banner-display banner-link-anim col-lg-12 col-6">
                             <a href="#">
-                                <img src="front/assets/images/banners/home/banner-3.jpg" alt="Banner">
+                                <img src="{{ url('front/assets/images/banners/home/banner-3.jpg') }}" alt="Banner">
                             </a>
 
                             <div class="banner-content banner-content-center">
@@ -833,9 +833,9 @@
                                 <div class="product product-11 mt-v3 text-center">
                                     <figure class="product-media">
                                         <a href="product.html">
-                                            <img src="front/assets/images/demos/demo-2/products/product-12-1.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-12-1.jpg') }}"
                                                 alt="Product image" class="product-image">
-                                            <img src="front/assets/images/demos/demo-2/products/product-12-2.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-12-2.jpg') }}"
                                                 alt="Product image" class="product-image-hover">
                                         </a>
 
@@ -870,9 +870,9 @@
                                 <div class="product product-11 mt-v3 text-center">
                                     <figure class="product-media">
                                         <a href="product.html">
-                                            <img src="front/assets/images/demos/demo-2/products/product-10-1.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-10-1.jpg') }}"
                                                 alt="Product image" class="product-image">
-                                            <img src="front/assets/images/demos/demo-2/products/product-10-2.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-10-2.jpg') }}"
                                                 alt="Product image" class="product-image-hover">
                                         </a>
 
@@ -910,9 +910,9 @@
                                     <figure class="product-media">
                                         <span class="product-label label-new">NEW</span>
                                         <a href="product.html">
-                                            <img src="front/assets/images/demos/demo-2/products/product-9-1.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-9-1.jpg') }}"
                                                 alt="Product image" class="product-image">
-                                            <img src="front/assets/images/demos/demo-2/products/product-9-2.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-9-2.jpg') }}"
                                                 alt="Product image" class="product-image-hover">
                                         </a>
 
@@ -940,9 +940,9 @@
                                 <div class="product product-11 mt-v3 text-center">
                                     <figure class="product-media">
                                         <a href="product.html">
-                                            <img src="front/assets/images/demos/demo-2/products/product-8-1.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-8-1.jpg') }}"
                                                 alt="Product image" class="product-image">
-                                            <img src="front/assets/images/demos/demo-2/products/product-8-2.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-8-2.jpg') }}"
                                                 alt="Product image" class="product-image-hover">
                                         </a>
 
@@ -979,9 +979,9 @@
                                 <div class="product product-11 mt-v3 text-center">
                                     <figure class="product-media">
                                         <a href="product.html">
-                                            <img src="front/assets/images/demos/demo-2/products/product-11-1.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-11-1.jpg') }}"
                                                 alt="Product image" class="product-image">
-                                            <img src="front/assets/images/demos/demo-2/products/product-11-2.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-11-2.jpg') }}"
                                                 alt="Product image" class="product-image-hover">
                                         </a>
 
@@ -1009,9 +1009,9 @@
                                 <div class="product product-11 mt-v3 text-center">
                                     <figure class="product-media">
                                         <a href="product.html">
-                                            <img src="front/assets/images/demos/demo-2/products/product-13-1.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-13-1.jpg') }}"
                                                 alt="Product image" class="product-image">
-                                            <img src="front/assets/images/demos/demo-2/products/product-13-2.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-13-2.jpg') }}"
                                                 alt="Product image" class="product-image-hover">
                                         </a>
 
@@ -1039,9 +1039,9 @@
                                 <div class="product product-11 mt-v3 text-center">
                                     <figure class="product-media">
                                         <a href="product.html">
-                                            <img src="front/assets/images/demos/demo-2/products/product-14-1.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-14-1.jpg') }}"
                                                 alt="Product image" class="product-image">
-                                            <img src="front/assets/images/demos/demo-2/products/product-14-2.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-14-2.jpg') }}"
                                                 alt="Product image" class="product-image-hover">
                                         </a>
 
@@ -1078,9 +1078,9 @@
                                     <figure class="product-media">
                                         <span class="product-label label-new">NEW</span>
                                         <a href="product.html">
-                                            <img src="front/assets/images/demos/demo-2/products/product-16-1.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-16-1.jpg') }}"
                                                 alt="Product image" class="product-image">
-                                            <img src="front/assets/images/demos/demo-2/products/product-16-2.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-16-2.jpg') }}"
                                                 alt="Product image" class="product-image-hover">
                                         </a>
 
@@ -1117,9 +1117,9 @@
                                     <figure class="product-media">
                                         <span class="product-label label-new">NEW</span>
                                         <a href="product.html">
-                                            <img src="front/assets/images/demos/demo-2/products/product-9-1.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-9-1.jpg') }}"
                                                 alt="Product image" class="product-image">
-                                            <img src="front/assets/images/demos/demo-2/products/product-9-2.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-9-2.jpg') }}"
                                                 alt="Product image" class="product-image-hover">
                                         </a>
 
@@ -1147,9 +1147,9 @@
                                 <div class="product product-11 mt-v3 text-center">
                                     <figure class="product-media">
                                         <a href="product.html">
-                                            <img src="front/assets/images/demos/demo-2/products/product-12-1.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-12-1.jpg') }}"
                                                 alt="Product image" class="product-image">
-                                            <img src="front/assets/images/demos/demo-2/products/product-12-2.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-12-2.jpg') }}"
                                                 alt="Product image" class="product-image-hover">
                                         </a>
 
@@ -1185,9 +1185,9 @@
                                 <div class="product product-11 mt-v3 text-center">
                                     <figure class="product-media">
                                         <a href="product.html">
-                                            <img src="front/assets/images/demos/demo-2/products/product-13-1.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-13-1.jpg') }}"
                                                 alt="Product image" class="product-image">
-                                            <img src="front/assets/images/demos/demo-2/products/product-13-2.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-13-2.jpg') }}"
                                                 alt="Product image" class="product-image-hover">
                                         </a>
 
@@ -1220,9 +1220,9 @@
                                 <div class="product product-11 mt-v3 text-center">
                                     <figure class="product-media">
                                         <a href="product.html">
-                                            <img src="front/assets/images/demos/demo-2/products/product-8-1.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-8-1.jpg') }}"
                                                 alt="Product image" class="product-image">
-                                            <img src="front/assets/images/demos/demo-2/products/product-8-2.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-8-2.jpg') }}"
                                                 alt="Product image" class="product-image-hover">
                                         </a>
 
@@ -1259,9 +1259,9 @@
                                 <div class="product product-11 mt-v3 text-center">
                                     <figure class="product-media">
                                         <a href="product.html">
-                                            <img src="front/assets/images/demos/demo-2/products/product-11-1.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-11-1.jpg') }}"
                                                 alt="Product image" class="product-image">
-                                            <img src="front/assets/images/demos/demo-2/products/product-11-2.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-11-2.jpg') }}"
                                                 alt="Product image" class="product-image-hover">
                                         </a>
 
@@ -1289,9 +1289,9 @@
                                 <div class="product product-11 mt-v3 text-center">
                                     <figure class="product-media">
                                         <a href="product.html">
-                                            <img src="front/assets/images/demos/demo-2/products/product-14-1.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-14-1.jpg') }}"
                                                 alt="Product image" class="product-image">
-                                            <img src="front/assets/images/demos/demo-2/products/product-14-2.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-14-2.jpg') }}"
                                                 alt="Product image" class="product-image-hover">
                                         </a>
 
@@ -1332,9 +1332,9 @@
                                 <div class="product product-11 mt-v3 text-center">
                                     <figure class="product-media">
                                         <a href="product.html">
-                                            <img src="front/assets/images/demos/demo-2/products/product-10-1.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-10-1.jpg') }}"
                                                 alt="Product image" class="product-image">
-                                            <img src="front/assets/images/demos/demo-2/products/product-10-2.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-10-2.jpg') }}"
                                                 alt="Product image" class="product-image-hover">
                                         </a>
 
@@ -1372,9 +1372,9 @@
                                     <figure class="product-media">
                                         <span class="product-label label-new">NEW</span>
                                         <a href="product.html">
-                                            <img src="front/assets/images/demos/demo-2/products/product-16-1.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-16-1.jpg') }}"
                                                 alt="Product image" class="product-image">
-                                            <img src="front/assets/images/demos/demo-2/products/product-16-2.jpg"
+                                            <img src="{{ url('front/assets/images/demos/demo-2/products/product-16-2.jpg') }}"
                                                 alt="Product image" class="product-image-hover">
                                         </a>
 
@@ -1478,7 +1478,7 @@
                     <article class="entry entry-display">
                         <figure class="entry-media">
                             <a href="single.html">
-                                <img src="front/assets/images/blog/home/post-1.jpg" alt="image desc">
+                                <img src="{{ url('front/assets/images/blog/home/post-1.jpg') }}" alt="image desc">
                             </a>
                         </figure><!-- End .entry-media -->
 
@@ -1502,7 +1502,7 @@
                     <article class="entry entry-display">
                         <figure class="entry-media">
                             <a href="single.html">
-                                <img src="front/assets/images/blog/home/post-2.jpg" alt="image desc">
+                                <img src="{{ url('front/assets/images/blog/home/post-2.jpg') }}" alt="image desc">
                             </a>
                         </figure><!-- End .entry-media -->
 
@@ -1526,7 +1526,7 @@
                     <article class="entry entry-display">
                         <figure class="entry-media">
                             <a href="single.html">
-                                <img src="front/assets/images/blog/home/post-3.jpg" alt="image desc">
+                                <img src="{{ url('front/assets/images/blog/home/post-3.jpg') }}" alt="image desc">
                             </a>
                         </figure><!-- End .entry-media -->
 
@@ -1555,7 +1555,7 @@
             </div><!-- End .more-container -->
         </div>
         <div class="cta cta-display bg-image pt-4 pb-4"
-            style="background-image: url(front/assets/images/backgrounds/cta/bg-6.jpg);">
+            style="background-image: {{ url('front/assets/images/backgrounds/cta/bg-6.jpg') }};">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-10 col-lg-9 col-xl-8">

@@ -1,6 +1,7 @@
 @extends('front.layouts.app')
 
 @section('style')
+    <link rel="stylesheet" href="{{ url('front/assets/css/plugins/nouislider/nouislider.css') }}">
 @endsection
 
 @section('content')
@@ -8,22 +9,14 @@
         <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
             <div class="container d-flex align-items-center">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Products</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Extended Description</li>
+                    <li class="breadcrumb-item"><a href="{{ url('') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a
+                            href="{{ url($getProduct->getCategory->slug) }}">{{ $getProduct->getCategory->name }}</a></li>
+                    <li class="breadcrumb-item"><a
+                            href="{{ url($getProduct->getCategory->slug . '/' . $getProduct->getSubCategory->slug) }}">{{ $getProduct->getSubCategory->name }}</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ $getProduct->title }}</li>
                 </ol>
-
-                <nav class="product-pager ml-auto" aria-label="Product">
-                    <a class="product-pager-link product-pager-prev" href="#" aria-label="Previous" tabindex="-1">
-                        <i class="icon-angle-left"></i>
-                        <span>Prev</span>
-                    </a>
-
-                    <a class="product-pager-link product-pager-next" href="#" aria-label="Next" tabindex="-1">
-                        <span>Next</span>
-                        <i class="icon-angle-right"></i>
-                    </a>
-                </nav>
             </div>
         </nav>
 
@@ -34,44 +27,29 @@
                         <div class="col-md-6">
                             <div class="product-gallery">
                                 <figure class="product-main-image">
-                                    <img id="product-zoom"
-                                        src="{{ url('front/assets/images/products/single/extended/3.jpg') }}"
-                                        data-zoom-image="{{ url('front/assets/images/products/single/extended/3-big.jpg') }}"
-                                        alt="product image">
 
-                                    <a href="#" id="btn-product-gallery" class="btn-product-gallery">
-                                        <i class="icon-arrows"></i>
-                                    </a>
+                                    @php
+                                        $getProductImage = $getProduct->getImageSingle($getProduct->id);
+                                    @endphp
+
+                                    @if (!empty($getProductImage) && !empty($getProductImage->getImages()))
+                                        <img id="product-zoom" src="{{ $getProductImage->getImages() }}"
+                                            data-zoom-image="{{ $getProductImage->getImages() }}" alt="product image">
+
+                                        <a href="#" id="btn-product-gallery" class="btn-product-gallery">
+                                            <i class="icon-arrows"></i>
+                                        </a>
+                                    @endif
                                 </figure><!-- End .product-main-image -->
 
                                 <div id="product-zoom-gallery" class="product-image-gallery">
-                                    <a class="product-gallery-item" href="#"
-                                        data-image="{{ url('front/assets/images/products/single/extended/1.jpg') }}"
-                                        data-zoom-image="{{ url('front/assets/images/products/single/extended/1-big.jpg') }}">
-                                        <img src="{{ url('front/assets/images/products/single/extended/1-small.jpg') }}"
-                                            alt="product side">
-                                    </a>
-
-                                    <a class="product-gallery-item" href="#"
-                                        data-image="{{ url('front/assets/images/products/single/extended/2.jpg') }}"
-                                        data-zoom-image="{{ url('front/assets/images/products/single/extended/2-big.jpg') }}">
-                                        <img src="{{ url('front/assets/images/products/single/extended/2-small.jpg') }}"
-                                            alt="product cross">
-                                    </a>
-
-                                    <a class="product-gallery-item active" href="#"
-                                        data-image="{{ url('front/assets/images/products/single/extended/3.jpg') }}"
-                                        data-zoom-image="{{ url('front/assets/images/products/single/extended/3-big.jpg') }}">
-                                        <img src="{{ url('front/assets/images/products/single/extended/3-small.jpg') }}"
-                                            alt="product with model">
-                                    </a>
-
-                                    <a class="product-gallery-item" href="#"
-                                        data-image="{{ url('front/assets/images/products/single/extended/4.jpg') }}"
-                                        data-zoom-image="{{ url('front/assets/images/products/single/extended/4-big.jpg') }}">
-                                        <img src="{{ url('front/assets/images/products/single/extended/4-small.jpg') }}"
-                                            alt="product back">
-                                    </a>
+                                    @foreach ($getProduct->getImage as $image)
+                                        <a class="product-gallery-item" href="#"
+                                            data-image="{{ $image->getImages() }}"
+                                            data-zoom-image="{{ $image->getImages() }}">
+                                            <img src="{{ $image->getImages() }}" alt="product side">
+                                        </a>
+                                    @endforeach
 
                                 </div>
                             </div>
@@ -79,7 +57,7 @@
 
                         <div class="col-md-6">
                             <div class="product-details">
-                                <h1 class="product-title">Yellow tie strap block heel sandals</h1>
+                                <h1 class="product-title">{{ $getProduct->title }}</h1>
 
 
                                 <div class="ratings-container">
@@ -90,43 +68,47 @@
                                 </div>
 
                                 <div class="product-price">
-                                    ₦70.00
+                                    ₦{{ number_format($getProduct->new_price, 2) }}
                                 </div>
 
                                 <div class="product-content">
-                                    <p>Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus
-                                        libero eu augue. Morbi purus libero, faucibus adipiscing. Sed lectus. </p>
+                                    <p>{{ $getProduct->short_description }} </p>
                                 </div>
 
-                                <div class="details-filter-row details-row-size">
-                                    <label>Color:</label>
+                                @if (!empty($getProduct->getColor->count()))
+                                    <div class="details-filter-row details-row-size">
+                                        <label for="size">Color:</label>
+                                        <div class="select-custom">
+                                            <select name="size" id="size" class="form-control">
+                                                <option value="">Select a color</option>
+                                                @foreach ($getProduct->getColor as $color)
+                                                    <option value="{{ $color->getColor->id }}">
+                                                        {{ $color->getColor->name }}</option>
+                                                @endforeach
 
-                                    <div class="product-nav product-nav-dots">
-                                        <a href="#" class="active" style="background: #eab656;"><span
-                                                class="sr-only">Color name</span></a>
-                                        <a href="#" style="background: #333333;"><span class="sr-only">Color
-                                                name</span></a>
-                                        <a href="#" style="background: #3a588b;"><span class="sr-only">Color
-                                                name</span></a>
-                                        <a href="#" style="background: #caab97;"><span class="sr-only">Color
-                                                name</span></a>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
 
-                                <div class="details-filter-row details-row-size">
-                                    <label for="size">Size:</label>
-                                    <div class="select-custom">
-                                        <select name="size" id="size" class="form-control">
-                                            <option value="#" selected="selected">Select a size</option>
-                                            <option value="s">Small</option>
-                                            <option value="m">Medium</option>
-                                            <option value="l">Large</option>
-                                            <option value="xl">Extra Large</option>
-                                        </select>
+                                @if (!empty($getProduct->getSize->count()))
+                                    <div class="details-filter-row details-row-size">
+                                        <label for="size">Size:</label>
+                                        <div class="select-custom">
+                                            <select name="size" id="size" class="form-control">
+                                                <option value="">Select a size</option>
+                                                @foreach ($getProduct->getSize as $size)
+                                                    <option value="{{ $size->id }}">
+                                                        {{ $size->name }} @if (!empty($size->price))
+                                                            (₦{{ number_format($size->price, 2) }})
+                                                        @endif
+                                                    </option>
+                                                @endforeach
+
+                                            </select>
+                                        </div>
                                     </div>
-
-                                    <a href="#" class="size-guide"><i class="icon-th-list"></i>size guide</a>
-                                </div>
+                                @endif
 
                                 <div class="details-filter-row details-row-size">
                                     <label for="qty">Qty:</label>
@@ -142,21 +124,23 @@
                                     <div class="details-action-wrapper">
                                         <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to
                                                 Wishlist</span></a>
-                                        <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to
-                                                Compare</span></a>
+                                        {{-- <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to
+                                                Compare</span></a> --}}
                                     </div>
                                 </div>
 
                                 <div class="product-details-footer">
                                     <div class="product-cat">
                                         <span>Category:</span>
-                                        <a href="#">Women</a>,
-                                        <a href="#">Shoes</a>,
-                                        <a href="#">Sandals</a>,
-                                        <a href="#">Yellow</a>
+
+                                        <a href="{{ url($getProduct->getCategory->slug) }}">
+                                            {{ $getProduct->getCategory->name }}</a>,
+                                        <a
+                                            href="{{ url($getProduct->getCategory->slug . '/' . $getProduct->getSubCategory->slug) }}">
+                                            {{ $getProduct->getSubCategory->name }}</a>
                                     </div><!-- End .product-cat -->
 
-                                    <div class="social-icons social-icons-sm">
+                                    {{-- <div class="social-icons social-icons-sm">
                                         <span class="social-label">Share:</span>
                                         <a href="#" class="social-icon" title="Facebook" target="_blank"><i
                                                 class="icon-facebook-f"></i></a>
@@ -166,7 +150,7 @@
                                                 class="icon-instagram"></i></a>
                                         <a href="#" class="social-icon" title="Pinterest" target="_blank"><i
                                                 class="icon-pinterest"></i></a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -202,131 +186,90 @@
                     <div class="tab-pane fade show active" id="product-desc-tab" role="tabpanel"
                         aria-labelledby="product-desc-link">
                         <div class="product-desc-content">
-                            <div class="container">
-                                <h3>Information</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat
-                                    mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna viverra non, semper
-                                    suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum. Aliquam
-                                    porttitor mauris sit amet orci. </p>
-
-                                <h3>Fabric & care</h3>
-                                <ul>
-                                    <li>Faux suede fabric</li>
-                                    <li>Gold tone metal hoop handles.</li>
-                                    <li>RI branding</li>
-                                    <li>Snake print trim interior </li>
-                                    <li>Adjustable cross body strap</li>
-                                    <li> Height: 31cm; Width: 32cm; Depth: 12cm; Handle Drop: 61cm</li>
-                                </ul>
-
-                                <h3>Size</h3>
-                                <p>one size</p>
+                            <div class="container" style="margin-top: 20px;">
+                                {!! $getProduct->description !!}
                             </div><!-- End .container -->
                         </div><!-- End .product-desc-content -->
-                        {{-- <div class="tab-pane fade" id="product-info-tab" role="tabpanel"
-                            aria-labelledby="product-info-link">
-                            <div class="product-desc-content">
-                                <div class="container">
-                                    <h3>Information</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque
-                                        volutpat
-                                        mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna viverra non, semper
-                                        suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum. Aliquam
-                                        porttitor mauris sit amet orci. </p>
+                    </div>
+                    <div class="tab-pane fade" id="product-info-tab" role="tabpanel"
+                        aria-labelledby="product-info-link">
+                        <div class="product-desc-content">
+                            <div class="container" style="margin-top: 20px;">
 
-                                    <h3>Fabric & care</h3>
-                                    <ul>
-                                        <li>Faux suede fabric</li>
-                                        <li>Gold tone metal hoop handles.</li>
-                                        <li>RI branding</li>
-                                        <li>Snake print trim interior </li>
-                                        <li>Adjustable cross body strap</li>
-                                        <li> Height: 31cm; Width: 32cm; Depth: 12cm; Handle Drop: 61cm</li>
-                                    </ul>
-
-                                    <h3>Size</h3>
-                                    <p>one size</p>
-                                </div><!-- End .container -->
-                            </div><!-- End .product-desc-content -->
-                        </div><!-- .End .tab-pane --> --}}
-                        <div class="tab-pane fade" id="product-shipping-tab" role="tabpanel"
-                            aria-labelledby="product-shipping-link">
-                            <div class="product-desc-content">
-                                <div class="container">
-                                    <h3>Delivery & returns</h3>
-                                    <p>We deliver to over 100 countries around the world. For full details of the delivery
-                                        options we offer, please view our <a href="#">Delivery information</a><br>
-                                        We hope you’ll love every purchase, but if you ever need to return an item you can
-                                        do so
-                                        within a month of receipt. For full details of how to make a return, please view our
-                                        <a href="#">Returns information</a>
-                                    </p>
-                                </div>
+                                {!! $getProduct->additional_information !!}
+                            </div><!-- End .container -->
+                        </div><!-- End .product-desc-content -->
+                    </div><!-- .End .tab-pane -->
+                    <div class="tab-pane fade" id="product-shipping-tab" role="tabpanel"
+                        aria-labelledby="product-shipping-link">
+                        <div class="product-desc-content">
+                            <div class="container" style="margin-top: 20px;">
+                                {!! $getProduct->shipping_returns !!}
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="product-review-tab" role="tabpanel"
-                            aria-labelledby="product-review-link">
-                            <div class="reviews">
-                                <div class="container">
-                                    <h3>Reviews (2)</h3>
-                                    <div class="review">
-                                        <div class="row no-gutters">
-                                            <div class="col-auto">
-                                                <h4><a href="#">Samanta J.</a></h4>
-                                                <div class="ratings-container">
-                                                    <div class="ratings">
-                                                        <div class="ratings-val" style="width: 80%;"></div>
+                    </div>
+                    <div class="tab-pane fade" id="product-review-tab" role="tabpanel"
+                        aria-labelledby="product-review-link">
+                        <div class="reviews">
+                            <div class="container">
+                                <h3>Reviews (2)</h3>
+                                <div class="review">
+                                    <div class="row no-gutters">
+                                        <div class="col-auto">
+                                            <h4><a href="#">Samanta J.</a></h4>
+                                            <div class="ratings-container">
+                                                <div class="ratings">
+                                                    <div class="ratings-val" style="width: 80%;"></div>
 
-                                                    </div>
                                                 </div>
-                                                <span class="review-date">6 days ago</span>
                                             </div>
-                                            <div class="col">
-                                                <h4>Good, perfect size</h4>
+                                            <span class="review-date">6 days ago</span>
+                                        </div>
+                                        <div class="col">
+                                            <h4>Good, perfect size</h4>
 
-                                                <div class="review-content">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus cum
-                                                        dolores assumenda asperiores facilis porro reprehenderit animi culpa
-                                                        atque blanditiis commodi perspiciatis doloremque, possimus,
-                                                        explicabo,
-                                                        autem fugit beatae quae voluptas!</p>
-                                                </div><!-- End .review-content -->
+                                            <div class="review-content">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus cum
+                                                    dolores assumenda asperiores facilis porro reprehenderit animi culpa
+                                                    atque blanditiis commodi perspiciatis doloremque, possimus,
+                                                    explicabo,
+                                                    autem fugit beatae quae voluptas!</p>
+                                            </div><!-- End .review-content -->
 
-                                                <div class="review-action">
-                                                    <a href="#"><i class="icon-thumbs-up"></i>Helpful (2)</a>
-                                                    <a href="#"><i class="icon-thumbs-down"></i>Unhelpful (0)</a>
-                                                </div>
+                                            <div class="review-action">
+                                                <a href="#"><i class="icon-thumbs-up"></i>Helpful (2)</a>
+                                                <a href="#"><i class="icon-thumbs-down"></i>Unhelpful (0)</a>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div class="review">
-                                        <div class="row no-gutters">
-                                            <div class="col-auto">
-                                                <h4><a href="#">John Doe</a></h4>
-                                                <div class="ratings-container">
-                                                    <div class="ratings">
-                                                        <div class="ratings-val" style="width: 100%;"></div>
+                                <div class="review">
+                                    <div class="row no-gutters">
+                                        <div class="col-auto">
+                                            <h4><a href="#">John Doe</a></h4>
+                                            <div class="ratings-container">
+                                                <div class="ratings">
+                                                    <div class="ratings-val" style="width: 100%;"></div>
 
-                                                    </div>
                                                 </div>
-                                                <span class="review-date">5 days ago</span>
                                             </div>
-                                            <div class="col">
-                                                <h4>Very good</h4>
+                                            <span class="review-date">5 days ago</span>
+                                        </div>
+                                        <div class="col">
+                                            <h4>Very good</h4>
 
-                                                <div class="review-content">
-                                                    <p>Sed, molestias, tempore? Ex dolor esse iure hic veniam laborum
-                                                        blanditiis
-                                                        laudantium iste amet. Cum non voluptate eos enim, ab cumque nam,
-                                                        modi,
-                                                        quas iure illum repellendus, blanditiis perspiciatis beatae!</p>
-                                                </div><!-- End .review-content -->
+                                            <div class="review-content">
+                                                <p>Sed, molestias, tempore? Ex dolor esse iure hic veniam laborum
+                                                    blanditiis
+                                                    laudantium iste amet. Cum non voluptate eos enim, ab cumque nam,
+                                                    modi,
+                                                    quas iure illum repellendus, blanditiis perspiciatis beatae!</p>
+                                            </div><!-- End .review-content -->
 
-                                                <div class="review-action">
-                                                    <a href="#"><i class="icon-thumbs-up"></i>Helpful (0)</a>
-                                                    <a href="#"><i class="icon-thumbs-down"></i>Unhelpful (0)</a>
-                                                </div>
+                                            <div class="review-action">
+                                                <a href="#"><i class="icon-thumbs-up"></i>Helpful (0)</a>
+                                                <a href="#"><i class="icon-thumbs-down"></i>Unhelpful (0)</a>
                                             </div>
                                         </div>
                                     </div>
@@ -335,11 +278,12 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="container">
-                    <h2 class="title text-center mb-4">You May Also Like</h2>
-                    <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl"
-                        data-owl-options='{
+            <div class="container">
+                <h2 class="title text-center mb-4">You May Also Like</h2>
+                <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl"
+                    data-owl-options='{
                     "nav": false,
                     "dots": true,
                     "margin": 20,
@@ -364,228 +308,62 @@
                         }
                     }
                 }'>
+                    @foreach ($getRelatedProduct as $value)
+                        @php
+                            $getProductImage = $value->getImageSingle($value->id);
+                        @endphp
                         <div class="product product-7">
                             <figure class="product-media">
-                                <span class="product-label label-new">New</span>
-                                <a href="product.html">
-                                    <img src="{{ url('front/assets/images/products/product-4.jpg') }}"
-                                        alt="Product image" class="product-image">
+
+                                <a href="{{ url($value->slug) }}">
+
+                                    @if (!empty($getProductImage) && !empty($getProductImage->getImages()))
+                                        <img style="width:100%; height:280px; object-fit:cover;"
+                                            src="{{ $getProductImage->getImages() }}" alt="{{ $value->title }}"
+                                            class="product-image">
+                                    @endif
+
                                 </a>
 
                                 <div class="product-action-vertical">
                                     <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to
                                             wishlist</span></a>
-                                    <a href="popup/quickView.html" class="btn-product-icon btn-quickview"
-                                        title="Quick view"><span>Quick view</span></a>
-                                    <a href="#" class="btn-product-icon btn-compare"
-                                        title="Compare"><span>Compare</span></a>
+
                                 </div>
 
-                                <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                </div>
+
                             </figure>
 
                             <div class="product-body">
                                 <div class="product-cat">
-                                    <a href="#">Women</a>
+                                    <a
+                                        href="{{ url($value->category_slug . '/' . $value->sub_category_slug) }}">{{ $value->sub_category_name }}</a>
                                 </div>
-                                <h3 class="product-title"><a href="product.html">Brown paperbag waist <br>pencil skirt</a>
-                                </h3>
+                                <h3 class="product-title"><a href="{{ url($value->slug) }}">{{ $value->title }}
+                                    </a></h3>
                                 <div class="product-price">
-                                    ₦60.00
+                                    ₦{{ number_format($value->new_price, 2) }}
                                 </div>
                                 <div class="ratings-container">
                                     <div class="ratings">
                                         <div class="ratings-val" style="width: 20%;"></div>
+
                                     </div>
                                     <span class="ratings-text">( 2 Reviews )</span>
                                 </div>
 
-                                <div class="product-nav product-nav-dots">
-                                    <a href="#" class="active" style="background: #cc9966;"><span
-                                            class="sr-only">Color name</span></a>
-                                    <a href="#" style="background: #7fc5ed;"><span class="sr-only">Color
-                                            name</span></a>
-                                    <a href="#" style="background: #e8c97a;"><span class="sr-only">Color
-                                            name</span></a>
-                                </div>
+
                             </div>
                         </div>
-
-                        <div class="product product-7">
-                            <figure class="product-media">
-                                <span class="product-label label-out">Out of Stock</span>
-                                <a href="product.html">
-                                    <img src="{{ url('front/assets/images/products/product-6.jpg') }}"
-                                        alt="Product image" class="product-image">
-                                </a>
-
-                                <div class="product-action-vertical">
-                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to
-                                            wishlist</span></a>
-                                    <a href="popup/quickView.html" class="btn-product-icon btn-quickview"
-                                        title="Quick view"><span>Quick view</span></a>
-                                    <a href="#" class="btn-product-icon btn-compare"
-                                        title="Compare"><span>Compare</span></a>
-                                </div>
-
-                                <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                </div>
-                            </figure>
-
-                            <div class="product-body">
-                                <div class="product-cat">
-                                    <a href="#">Jackets</a>
-                                </div>
-                                <h3 class="product-title"><a href="product.html">Khaki utility boiler jumpsuit</a></h3>
-
-                                <div class="product-price">
-                                    <span class="out-price">₦120.00</span>
-                                </div>
-                                <div class="ratings-container">
-                                    <div class="ratings">
-                                        <div class="ratings-val" style="width: 80%;"></div>
-                                    </div>
-                                    <span class="ratings-text">( 6 Reviews )</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="product product-7">
-                            <figure class="product-media">
-                                <span class="product-label label-top">Top</span>
-                                <a href="product.html">
-                                    <img src="{{ url('front/assets/images/products/product-11.jpg') }}"
-                                        alt="Product image" class="product-image">
-                                </a>
-
-                                <div class="product-action-vertical">
-                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to
-                                            wishlist</span></a>
-                                    <a href="popup/quickView.html" class="btn-product-icon btn-quickview"
-                                        title="Quick view"><span>Quick view</span></a>
-                                    <a href="#" class="btn-product-icon btn-compare"
-                                        title="Compare"><span>Compare</span></a>
-                                </div>
-
-                                <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                </div>
-                            </figure>
-
-                            <div class="product-body">
-                                <div class="product-cat">
-                                    <a href="#">Shoes</a>
-                                </div>
-                                <h3 class="product-title"><a href="product.html">Light brown studded Wide fit wedges</a>
-                                </h3>
-
-                                <div class="product-price">
-                                    ₦110.00
-                                </div>
-                                <div class="ratings-container">
-                                    <div class="ratings">
-                                        <div class="ratings-val" style="width: 80%;"></div>
-                                    </div>
-                                    <span class="ratings-text">( 1 Reviews )</span>
-                                </div>
-
-                                <div class="product-nav product-nav-dots">
-                                    <a href="#" class="active" style="background: #8b513d;"><span
-                                            class="sr-only">Color name</span></a>
-                                    <a href="#" style="background: #333333;"><span class="sr-only">Color
-                                            name</span></a>
-                                    <a href="#" style="background: #d2b99a;"><span class="sr-only">Color
-                                            name</span></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="product product-7">
-                            <figure class="product-media">
-                                <a href="product.html">
-                                    <img src="{{ url('front/assets/images/products/product-10.jpg') }}"
-                                        alt="Product image" class="product-image">
-                                </a>
-
-                                <div class="product-action-vertical">
-                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to
-                                            wishlist</span></a>
-                                    <a href="popup/quickView.html" class="btn-product-icon btn-quickview"
-                                        title="Quick view"><span>Quick view</span></a>
-                                    <a href="#" class="btn-product-icon btn-compare"
-                                        title="Compare"><span>Compare</span></a>
-                                </div>
-
-                                <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                </div>
-                            </figure>
-
-                            <div class="product-body">
-                                <div class="product-cat">
-                                    <a href="#">Jumpers</a>
-                                </div>
-                                <h3 class="product-title"><a href="product.html">Yellow button front tea top</a></h3>
-
-                                <div class="product-price">
-                                    ₦56.00
-                                </div>
-                                <div class="ratings-container">
-                                    <div class="ratings">
-                                        <div class="ratings-val" style="width: 0%;"></div><!-- End .ratings-val -->
-                                    </div>
-                                    <span class="ratings-text">( 0 Reviews )</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="product product-7">
-                            <figure class="product-media">
-                                <a href="product.html">
-                                    <img src="front/assets/images/products/product-7.jpg" alt="Product image"
-                                        class="product-image">
-                                </a>
-
-                                <div class="product-action-vertical">
-                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to
-                                            wishlist</span></a>
-                                    <a href="popup/quickView.html" class="btn-product-icon btn-quickview"
-                                        title="Quick view"><span>Quick view</span></a>
-                                    <a href="#" class="btn-product-icon btn-compare"
-                                        title="Compare"><span>Compare</span></a>
-                                </div>
-
-                                <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                </div>
-                            </figure>
-
-                            <div class="product-body">
-                                <div class="product-cat">
-                                    <a href="#">Jeans</a>
-                                </div>
-                                <h3 class="product-title"><a href="product.html">Blue utility pinafore denim dress</a>
-                                </h3>
-
-                                <div class="product-price">
-                                    ₦76.00
-                                </div>
-                                <div class="ratings-container">
-                                    <div class="ratings">
-                                        <div class="ratings-val" style="width: 20%;"></div>
-                                    </div>
-                                    <span class="ratings-text">( 2 Reviews )</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
+        </div>
     </main>
 @endsection
 
 @section('script')
+    <script src="{{ url('front/assets/js/bootstrap-input-spinner.js') }}"></script>
+    <script src="{{ url('front/assets/js/jquery.elevateZoom.min.js') }}"></script>
+    <script src="{{ url('front/assets/js/jquery.magnific-pop.min.js') }}"></script>
 @endsection

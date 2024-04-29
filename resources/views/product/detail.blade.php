@@ -68,66 +68,78 @@
                                 </div>
 
                                 <div class="product-price">
-                                    ₦{{ number_format($getProduct->new_price, 2) }}
+                                    ₦<span id="getTotalPayablePrice">{{ number_format($getProduct->new_price, 2) }}</span>
                                 </div>
 
                                 <div class="product-content">
                                     <p>{{ $getProduct->short_description }} </p>
                                 </div>
 
-                                @if (!empty($getProduct->getColor->count()))
-                                    <div class="details-filter-row details-row-size">
-                                        <label for="size">Color:</label>
-                                        <div class="select-custom">
-                                            <select name="size" id="size" class="form-control">
-                                                <option value="">Select a color</option>
-                                                @foreach ($getProduct->getColor as $color)
-                                                    <option value="{{ $color->getColor->id }}">
-                                                        {{ $color->getColor->name }}</option>
-                                                @endforeach
 
-                                            </select>
+                                <form action="{{ url('product/add-to-cart') }}" method="post">
+                                    {{ csrf_field() }}
+
+                                    <input type="hidden" name="product_id" value="{{ $getProduct->id }}">
+
+                                    @if (!empty($getProduct->getColor->count()))
+                                        <div class="details-filter-row details-row-size">
+                                            <label for="size">Color:</label>
+                                            <div class="select-custom">
+                                                <select name="color_id" id="color_id" class="form-control" required>
+                                                    <option value="">Select a color</option>
+                                                    @foreach ($getProduct->getColor as $color)
+                                                        <option value="{{ $color->getColor->id }}">
+                                                            {{ $color->getColor->name }}</option>
+                                                    @endforeach
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    @if (!empty($getProduct->getSize->count()))
+                                        <div class="details-filter-row details-row-size">
+                                            <label for="size">Size:</label>
+                                            <div class="select-custom">
+                                                <select name="size_size" id="size" class="form-control getSizePrice"
+                                                    required>
+                                                    <option data-price="0" value="">Select a size</option>
+                                                    @foreach ($getProduct->getSize as $size)
+                                                        <option data-price="{{ !empty($size->price) ? $size->price : 0 }}"
+                                                            value="{{ $size->id }}">
+                                                            {{ $size->name }} @if (!empty($size->price))
+                                                                (₦{{ number_format($size->price, 2) }})
+                                                            @endif
+                                                        </option>
+                                                    @endforeach
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    <div class="details-filter-row details-row-size">
+                                        <label for="qty">Qty:</label>
+                                        <div class="product-details-quantity">
+                                            <input type="number" id="qty" class="form-control" name="qty"
+                                                value="1" min="1" max="100" step="1"
+                                                data-decimals="0" required>
                                         </div>
                                     </div>
-                                @endif
 
-                                @if (!empty($getProduct->getSize->count()))
-                                    <div class="details-filter-row details-row-size">
-                                        <label for="size">Size:</label>
-                                        <div class="select-custom">
-                                            <select name="size" id="size" class="form-control">
-                                                <option value="">Select a size</option>
-                                                @foreach ($getProduct->getSize as $size)
-                                                    <option value="{{ $size->id }}">
-                                                        {{ $size->name }} @if (!empty($size->price))
-                                                            (₦{{ number_format($size->price, 2) }})
-                                                        @endif
-                                                    </option>
-                                                @endforeach
+                                    <div class="product-details-action">
 
-                                            </select>
-                                        </div>
-                                    </div>
-                                @endif
+                                        <button type="submit" class="btn-product btn-cart"
+                                            style="background: #fff; color:#c96;">add to cart</button>
 
-                                <div class="details-filter-row details-row-size">
-                                    <label for="qty">Qty:</label>
-                                    <div class="product-details-quantity">
-                                        <input type="number" id="qty" class="form-control" value="1"
-                                            min="1" max="10" step="1" data-decimals="0" required>
-                                    </div>
-                                </div>
-
-                                <div class="product-details-action">
-                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-
-                                    <div class="details-action-wrapper">
-                                        <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to
-                                                Wishlist</span></a>
-                                        {{-- <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to
+                                        <div class="details-action-wrapper">
+                                            <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to
+                                                    Wishlist</span></a>
+                                            {{-- <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to
                                                 Compare</span></a> --}}
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
 
                                 <div class="product-details-footer">
                                     <div class="product-cat">
@@ -314,6 +326,43 @@
                         @endphp
                         <div class="product product-7">
                             <figure class="product-media">
+                                <a href="{{ url($value->slug) }}">
+                                    @if ($getProductImage && $getProductImage->getImages())
+                                        <img style="width:100%; height:280px; object-fit:cover;"
+                                            src="{{ $getProductImage->getImages() }}" alt="{{ $value->title }}"
+                                            class="product-image">
+                                    @endif
+                                </a>
+                                <div class="product-action-vertical">
+                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to
+                                            wishlist</span></a>
+                                </div>
+                            </figure>
+                            <div class="product-body">
+                                <div class="product-cat">
+                                    <a
+                                        href="{{ url($value->category_slug . '/' . $value->sub_category_slug) }}">{{ $value->sub_category_name }}</a>
+                                </div>
+                                <h3 class="product-title"><a href="{{ url($value->slug) }}">{{ $value->title }}</a></h3>
+                                <div class="product-price">
+                                    ₦{{ number_format($value->new_price, 2) }}
+                                </div>
+                                <div class="ratings-container">
+                                    <div class="ratings">
+                                        <div class="ratings-val" style="width: 20%;"></div>
+                                    </div>
+                                    <span class="ratings-text">( 2 Reviews )</span>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
+                    {{-- @foreach ($getRelatedProduct as $value)
+                        @php
+                            $getProductImage = $value->getImageSingle($value->id);
+                        @endphp
+                        <div class="product product-7">
+                            <figure class="product-media">
 
                                 <a href="{{ url($value->slug) }}">
 
@@ -339,8 +388,10 @@
                                     <a
                                         href="{{ url($value->category_slug . '/' . $value->sub_category_slug) }}">{{ $value->sub_category_name }}</a>
                                 </div>
+
                                 <h3 class="product-title"><a href="{{ url($value->slug) }}">{{ $value->title }}
                                     </a></h3>
+
                                 <div class="product-price">
                                     ₦{{ number_format($value->new_price, 2) }}
                                 </div>
@@ -352,10 +403,9 @@
                                     <span class="ratings-text">( 2 Reviews )</span>
                                 </div>
 
-
                             </div>
                         </div>
-                    @endforeach
+                    @endforeach --}}
                 </div>
             </div>
         </div>
@@ -366,4 +416,17 @@
     <script src="{{ url('front/assets/js/bootstrap-input-spinner.js') }}"></script>
     <script src="{{ url('front/assets/js/jquery.elevateZoom.min.js') }}"></script>
     <script src="{{ url('front/assets/js/jquery.magnific-pop.min.js') }}"></script>
+
+    <script type="text/javascript">
+        $('.getSizePrice').change(function() {
+
+            var productPrice = '{{ $getProduct->new_price }}';
+
+            var price = $('option:selected', this).attr('data-price');
+
+            var totalPrice = parseFloat(productPrice) + parseFloat(price);
+
+            $('#getTotalPayablePrice').html(totalPrice.toFixed(2));
+        });
+    </script>
 @endsection

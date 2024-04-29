@@ -55,4 +55,5 @@ class User extends Authenticatable
             ->where('is_delete', '=', 'not')
             ->get();
     }
+
 }

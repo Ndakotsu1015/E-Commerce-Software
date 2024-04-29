@@ -85,6 +85,10 @@ class Product extends Model
 
         }
 
+        if (!empty(Request::get('q'))) {
+            return $return->where('products.title', 'like', '%' . Request::get('q') . '%');
+        }
+
         $return = $return->where('products.is_delete', '=', 'not')
             ->where('products.status', '=', 'Active')
             ->groupBy('products.id')
@@ -119,6 +123,7 @@ class Product extends Model
         return $return;
 
     }
+
     static public function getProduct()
     {
         return Product::select('products.*', 'users.name as created_by_name')

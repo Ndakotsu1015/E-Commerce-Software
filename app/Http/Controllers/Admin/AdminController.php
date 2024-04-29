@@ -19,6 +19,16 @@ class AdminController extends Controller
 
         return view('admin.admin.list', $data);
     }
+    public function detail($id)
+    {
+        $data['getRecord'] = User::getSingle($id);
+        // dd($data['getRecord']);
+
+
+        $data['header_title'] = "Admin Details";
+
+        return view('admin.admin.detail', $data);
+    }
     public function add()
     {
 

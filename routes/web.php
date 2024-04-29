@@ -39,6 +39,8 @@ Route::group(['middleware' => 'admin'], function () {
     //Admin Crud Operation
     Route::get('admin/admin/list', [AdminController::class, 'list']);
 
+    Route::get('admin/admin/detail/{id}', [AdminController::class, 'detail']);
+
     Route::get('admin/admin/add', [AdminController::class, 'add']);
 
     Route::post('admin/admin/add', [AdminController::class, 'insert']);
@@ -100,6 +102,8 @@ Route::group(['middleware' => 'admin'], function () {
 
 
 Route::get('/', [HomeController::class, 'home']);
+
+Route::get('search', [ProductFront::class, 'getSearchProduct']);
 
 Route::post('get_filter_product_ajax', [ProductFront::class, 'getFilterProductAjax']);
 

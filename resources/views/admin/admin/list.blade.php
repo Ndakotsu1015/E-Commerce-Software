@@ -48,8 +48,8 @@
                                                 <td>{{ $value->email }}</td>
                                                 <td>{{ $value->status == 'Active' ? 'Active' : 'Inactive' }}</td>
                                                 <td>
-                                                    <a href="{{ url('admin/admin/edit/' . $value->id) }}"
-                                                        class=" btn btn-primary">Edit</a>
+                                                    <a href="{{ url('admin/admin/detail/' . $value->id) }}"
+                                                        class=" btn btn-primary">Details</a>
                                                     <a onclick="return confirm('Are you sure you want to Remove?');"
                                                         href="{{ url('admin/admin/delete/' . $value->id) }}"
                                                         class=" btn btn-danger">Delete</a>

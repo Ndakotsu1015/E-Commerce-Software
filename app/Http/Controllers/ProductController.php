@@ -2,15 +2,105 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\Color;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 
 class ProductController extends Controller
 {
+    public function getSearchProduct(Request $request)
+    {
+        $data['meta_title'] = 'Search';
+        $data['meta_description'] = '';
+        $data['meta_keywords'] = '';
+
+        // Assuming getProductByCategorySubCategory() returns a query builder
+        $query = Product::getProductByCategorySubCategory();
+
+        // Paginate the results manually
+        $perPage = 10; // Assuming 10 items per page, change according to your requirement
+        $page = $request->query('page', 1); // Get the current page from the request query parameters
+        $getProduct = $query->paginate($perPage, ['*'], 'page', $page);
+
+        // Extracting page number
+        $page = $getProduct->currentPage();
+
+        $data['page'] = $page;
+        $data['getProduct'] = $getProduct; // Passing paginated results to the view
+        $data['getColor'] = Color::getColorActive();
+        $data['getBrand'] = Brand::getBrandActive();
+
+        return view('product.list', $data);
+    }
+
+    // public function getSearchProduct(Request $request)
+    // {
+
+
+    //     $data['meta_title'] = 'Search';
+
+    //     $data['meta_description'] = '';
+
+    //     $data['meta_keywords'] = '';
+
+    //     $getProduct = Product::getProductByCategorySubCategory();
+
+    //     $page = 0;
+    //     if (!empty($getProduct->nextPageUrl())) {
+
+    //         $parse_url = parse_url($getProduct->nextPageUrl());
+
+
+    //         if (!empty($parse_url['query'])) {
+
+    //             parse_str($parse_url['query'], $get_array);
+
+    //             $page = !empty($get_array['page']) ? $get_array['page'] : 0;
+    //         }
+    //     }
+
+    //     $data['page'] = $page;
+
+    //     $data['getProduct'] = $getProduct;
+    //     $data['getColor'] = Color::getColorActive();
+    //     $data['getBrand'] = Brand::getBrandActive();
+    //     return view('product.list', $data);
+
+
+    // }
+    // public function getSearchProduct(Request $request)
+    // {
+    //     $data['meta_title'] = 'Search';
+    //     $data['meta_description'] = '';
+    //     $data['meta_keywords'] = '';
+
+    //     // Assuming getProductByCategorySubCategory() returns a paginated result
+    //     $getProduct = Product::getProductByCategorySubCategory();
+
+    //     $page = 0;
+    //     // Checking if there's a next page URL
+    //     if (!is_null($getProduct->nextPageUrl())) {
+    //         $parse_url = parse_url($getProduct->nextPageUrl());
+
+    //         if (!empty($parse_url['query'])) {
+    //             parse_str($parse_url['query'], $get_array);
+    //             $page = !empty($get_array['page']) ? $get_array['page'] : 0;
+    //         }
+    //     }
+
+    //     $data['page'] = $page;
+    //     $data['getProduct'] = $getProduct->items(); // Fetching items from the paginator
+    //     $data['getColor'] = Color::getColorActive();
+    //     $data['getBrand'] = Brand::getBrandActive();
+
+    //     return view('product.list', $data);
+    // }
+
     public function getCategory($slug, $subslug = '')
     {
 
@@ -33,9 +123,7 @@ class ProductController extends Controller
 
             $data['getProduct'] = $getProductSingle;
 
-            $data['getRelatedProduct'] = Product::getRelatedProduct($getProductSingle->id, $getProductSingle->sub_category_id);
-
-
+            $data['getRelatedProduct'] = Product::getRelatedProduct($getProductSingle->product_id, $getProductSingle->sub_category_id);
 
             return view('product.detail', $data);
 

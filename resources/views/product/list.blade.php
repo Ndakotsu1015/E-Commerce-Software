@@ -16,8 +16,10 @@
             <div class="container">
                 @if (!empty($getSubCategory))
                     <h1 class="page-title">{{ $getSubCategory->name }}</h1>
-                @else
+                @elseif (!empty($getcategory))
                     <h1 class="page-title">{{ $getCategory->name }}</h1>
+                @else
+                    <h1 class="page-title"> Search For {{ Request::get('q') }}</h1>
                 @endif
             </div>
         </div>
@@ -31,7 +33,7 @@
                             <a href="{{ url($getCategory->slug) }}">{{ $getCategory->name }}</a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">{{ $getSubCategory->name }}</li>
-                    @else
+                    @elseif (!empty($getCategory))
                         <li class="breadcrumb-item active" aria-current="page">{{ $getCategory->name }}</li>
                     @endif
                 </ol>
@@ -45,7 +47,8 @@
                         <div class="toolbox">
                             <div class="toolbox-left">
                                 <div class="toolbox-info">
-                                    Showing <span>{{ $getProduct->perPage() }} of {{ $getProduct->total() }}</span> Products
+                                    Showing <span>{{ $getProduct->perPage() }} of {{ $getProduct->total() }}</span>
+                                    Products
                                 </div>
                             </div>
 
@@ -82,6 +85,9 @@
                         <form method="post" action="" id="FilterForm">
                             {{ csrf_field() }}
 
+                            <input type="hidden" name="q"
+                                value="{{ !empty(Request::get('q')) ? Request::get('q') : '' }}">
+
                             <input type="hidden" name="old_sub_category_id"
                                 value="{{ !empty($getSubCategory) ? $getSubCategory->id : '' }}">
 
@@ -102,33 +108,37 @@
                                 <a href="#" class="sidebar-filter-clear">Clean All</a>
                             </div><!-- End .widget widget-clean -->
 
-                            <div class="widget widget-collapsible">
-                                <h3 class="widget-title">
-                                    <a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true"
-                                        aria-controls="widget-1">
-                                        Category
-                                    </a>
-                                </h3>
+                            @if (!empty($getSubCategoryFilter))
+                                <div class="widget widget-collapsible">
+                                    <h3 class="widget-title">
+                                        <a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true"
+                                            aria-controls="widget-1">
+                                            Category
+                                        </a>
+                                    </h3>
 
-                                <div class="collapse show" id="widget-1">
-                                    <div class="widget-body">
-                                        <div class="filter-items filter-items-count">
+                                    <div class="collapse show" id="widget-1">
+                                        <div class="widget-body">
+                                            <div class="filter-items filter-items-count">
 
-                                            @foreach ($getSubCategoryFilter as $f_category)
-                                                <div class="filter-item">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input ChangeCategory"
-                                                            value="{{ $f_category->id }}" id="cat-{{ $f_category->id }}">
-                                                        <label class="custom-control-label"
-                                                            for="cat-{{ $f_category->id }}">{{ $f_category->name }}</label>
+                                                @foreach ($getSubCategoryFilter as $f_category)
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox"
+                                                                class="custom-control-input ChangeCategory"
+                                                                value="{{ $f_category->id }}"
+                                                                id="cat-{{ $f_category->id }}">
+                                                            <label class="custom-control-label"
+                                                                for="cat-{{ $f_category->id }}">{{ $f_category->name }}</label>
+                                                        </div>
+                                                        <span class="item-count">{{ $f_category->TotalProduct() }}</span>
                                                     </div>
-                                                    <span class="item-count">{{ $f_category->TotalProduct() }}</span>
-                                                </div>
-                                            @endforeach
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
 
                             {{-- <div class="widget widget-collapsible">
                                 <h3 class="widget-title">

@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="{{ url('assets/plugins/summernote/summernote-bs4.min.css') }}">
 @endsection
 @section('content')
-    <div class="content-wrapper">
+    <div class="content-wrapper p-3">
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -134,6 +134,7 @@
                                             <label>Size <span style="color:red">*</span></label>
                                             <div>
                                                 <table class="table table-striped">
+                                                    <caption>Add Product Size(s)</caption>
                                                     <thead>
                                                         <tr>
                                                             <th>Name</th>
@@ -142,6 +143,25 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody id="AppendSize">
+
+                                                        {{-- @if (count($product->getSize) == 0)
+                                                            <tr>
+                                                                <td>
+                                                                    <input type="text" name="size[0][name]"
+                                                                        placeholder="Name" class="form-control">
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" name="size[0][price]"
+                                                                        placeholder="Price" class="form-control">
+                                                                </td>
+                                                                <td style="width: 200px;">
+                                                                    <button type="button" id="0"
+                                                                        class="btn btn-danger DeletSize"> Delete
+
+
+                                                                </td>
+                                                            </tr>
+                                                        @endif --}}
                                                         @php
                                                             $i_s = 1;
                                                         @endphp
@@ -151,43 +171,45 @@
                                                                     <input type="text"
                                                                         name="size[{{ $i_s }}][name]"
                                                                         value="{{ $size->name }}" placeholder="Name"
-                                                                        class="form-control">
+                                                                        class="form-control"> {{ $size->name }}
                                                                 </td>
                                                                 <td>
                                                                     <input type="text" value="{{ $size->price }}"
-                                                                        name="size[{{ $i_s }}][price]"
+                                                                        name="size[{{ $i_s }}}][price]"
                                                                         placeholder="Price" class="form-control">
                                                                 </td>
                                                                 <td style="width: 200px;">
                                                                     <button type="button" id="{{ $i_s }}"
                                                                         class="btn btn-danger DeletSize"> Delete
-
-
                                                                 </td>
                                                             </tr>
                                                             @php
                                                                 $i_s++;
                                                             @endphp
                                                         @endforeach
-                                                        <tr>
-                                                            <td>
-                                                                <input type="text" name="size[100][name]"
-                                                                    placeholder="Name" class="form-control">
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" name="size[100][price]"
-                                                                    placeholder="Price" class="form-control">
-                                                            </td>
-                                                            <td style="width: 200px;">
-                                                                <button type="button" id=""
-                                                                    class="btn btn-primary AddSize"> Add
 
-
-                                                            </td>
-                                                        </tr>
 
 
                                                     </tbody>
+                                                </table>
+
+                                                <table class="table table">
+                                                    <tr>
+                                                        <td>
+                                                            {{-- <input type="text" name="size[0][name]"
+                                                                placeholder="Name" class="form-control"> --}}
+                                                        </td>
+                                                        <td>
+                                                            {{-- <input type="text" name="size[0][price]"
+                                                                placeholder="Price" class="form-control"> --}}
+                                                        </td>
+                                                        <td style="width: 200px;">
+                                                            <button type="button" id=""
+                                                                class="btn btn-primary AddSize"> Add
+
+
+                                                        </td>
+                                                    </tr>
                                                 </table>
                                             </div>
 
@@ -317,7 +339,7 @@
 
         });
 
-        var i = 100;
+        var i = {{ $i_s ?? 1 }};
         $('body').on('click', '.AddSize', function() {
             var html = '<tr id="DeleteSize' + i + '">' +
                 '<td>' +
